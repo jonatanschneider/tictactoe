@@ -29,6 +29,7 @@ public abstract class Board implements ImmutableBoard {
     @Override
     public List<Move> getHistory() {
         // TODO: implement
+        // Save single move in each board? Save list of all moves leading to this board?
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
