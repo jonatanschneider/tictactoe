@@ -1,5 +1,6 @@
 package p20;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Board implements ImmutableBoard {
@@ -9,9 +10,15 @@ public abstract class Board implements ImmutableBoard {
 
     // TODO: add basic constructor in implementing board classes
     public Board(Board parent, boolean isFlipped, Move move) {
-        // TODO: copy parent's board and make move
+        // Copy parent's board state
+        this.board = Arrays.copyOf(parent.getBoard(), parent.getBoard().length);
+        // TODO: make move, run internal abstract method?
         this.parent = parent;
         this.isFlipped = isFlipped;
+    }
+
+    private int[] getBoard() {
+        return board;
     }
 
     @Override
