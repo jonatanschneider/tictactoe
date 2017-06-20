@@ -8,10 +8,6 @@ public abstract class Board implements ImmutableBoard {
     private Board parent;
     private boolean isFlipped;
 
-    private int[] getBoard() {
-        return board;
-    }
-
     @Override
     public ImmutableBoard undoMove() {
         return parent;
