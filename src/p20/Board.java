@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Queue;
 
 public abstract class Board implements ImmutableBoard {
-    private int[] board;
-    private Board parent;
-    private Move move;
-    private boolean isFlipped;
+    protected int[] board;
+    protected Board parent;
+    protected Move move;
+    protected boolean isFlipped;
 
     @Override
     public ImmutableBoard undoMove() {
