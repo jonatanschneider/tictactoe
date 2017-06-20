@@ -1,5 +1,57 @@
 package p20;
 
-public abstract class Board implements ImmutableBoard{
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
+public abstract class Board implements ImmutableBoard {
+    private int[] board;
+    private Board parent;
+    private Move move;
+    private boolean isFlipped;
+
+    @Override
+    public ImmutableBoard undoMove() {
+        return parent;
+    }
+
+    @Override
+    public List<Move> getHistory() {
+        Board board = this;
+        Queue<Move> history = new LinkedList<>();
+
+        while(board != null) {
+            if(board.move != null) {
+                history.add(board.move);
+            }
+            board = board.parent;
+        }
+        return (List) history;
+    }
+
+    @Override
+    public ImmutableBoard flip() {
+        isFlipped = !isFlipped;
+        return this;
+    }
+
+    @Override
+    public boolean isFlipped() {
+        return isFlipped;
+    }
+
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        // Generate number based on the ternary numeral system to identify the play position
+        // without respecting java object references
+        for(int i = 0; i < board.length; i++) {
+            // Board's fields can hold three states -1 (player 1) / 0 (not set) / 1 (player 2)
+            // Add 1 to the field's state so the result is within 0 - 2 allowing us to
+            // build a ternary number based on the field's index
+            hashCode += Math.pow(board[i] + 1, i);
+        }
+        return hashCode;
+    }
 }
