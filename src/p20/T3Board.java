@@ -6,11 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class T3Board extends Board<Integer> {
-	public int[] board = new int[9];
-	public Board parent = null;
-	public List<Integer> history = new ArrayList<>();
-	public boolean isFlipped = false;
-	
 	@Override
 	public Board makeMove(Integer pos){
 		Board b = new Board();
