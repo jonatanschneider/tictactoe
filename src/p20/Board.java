@@ -1,11 +1,14 @@
 package p20;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public abstract class Board implements ImmutableBoard {
     private int[] board;
     private Board parent;
+    private Move move;
     private boolean isFlipped;
 
     @Override
@@ -15,9 +18,16 @@ public abstract class Board implements ImmutableBoard {
 
     @Override
     public List<Move> getHistory() {
-        // TODO: implement
-        // Save single move in each board? Save list of all moves leading to this board?
-        throw new UnsupportedOperationException("Not implemented yet.");
+        Board board = this;
+        Queue<Move> history = new LinkedList<>();
+
+        while(board != null) {
+            if(board.move != null) {
+                history.add(board.move);
+            }
+            board = board.parent;
+        }
+        return (List) history;
     }
 
     @Override
