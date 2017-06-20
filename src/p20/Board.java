@@ -8,15 +8,6 @@ public abstract class Board implements ImmutableBoard {
     private Board parent;
     private boolean isFlipped;
 
-    // TODO: add basic constructor in implementing board classes
-    public Board(Board parent, boolean isFlipped, Move move) {
-        // Copy parent's board state
-        this.board = Arrays.copyOf(parent.getBoard(), parent.getBoard().length);
-        // TODO: make move, run internal abstract method?
-        this.parent = parent;
-        this.isFlipped = isFlipped;
-    }
-
     private int[] getBoard() {
         return board;
     }
