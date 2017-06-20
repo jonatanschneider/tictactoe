@@ -22,19 +22,6 @@ public class T3Board extends Board<Integer> {
 		b.isFlipped = isFlipped;
 		return b;
 	}
-
-	@Override
-	public Board makeMove(Integer... positions){
-		Board b = this;
-		for(int pos : positions) b = b.makeMove(pos);
-		return b;
-	}
-
-	@Override
-	public Board undoMove(){
-		history.remove(history.size()-1);
-		return parent;
-	}
 	
 	@Override
 	public List<Integer> moves(){
@@ -66,24 +53,6 @@ public class T3Board extends Board<Integer> {
 	}
 
 	@Override
-	public List<Integer> getHistory(){
-		return history;
-	}
-
-	@Override
-	public Board flip(){
-		Board b = new Board();
-		b.board = Arrays.copyOf(board, 9);
-		b.parent = this;
-		b.history = new ArrayList<>(history);
-		b.isFlipped = !isFlipped;
-		return b;
-	}
-
-	@Override
-	public boolean isFlipped(){ return isFlipped; }
-
-	@Override
 	public String toString(){
 		String s = "\n";
 		for(int i = 0; i < 9; i++){
@@ -94,9 +63,5 @@ public class T3Board extends Board<Integer> {
 		}
 		s += "\n";
 		return s;
-	}
-	@Override
-	public int hashCode(){
-		return Arrays.hashCode(board);
 	}
 }
