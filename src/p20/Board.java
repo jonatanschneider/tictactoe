@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public abstract class Board implements ImmutableBoard {
+public abstract class Board<Move> implements ImmutableBoard<Move> {
     protected int[] board;
     protected Board parent;
     protected Move move;
@@ -22,7 +22,7 @@ public abstract class Board implements ImmutableBoard {
 
         while(board != null) {
             if(board.move != null) {
-                history.add(board.move);
+                history.add((Move) board.move);
             }
             board = board.parent;
         }
