@@ -1,9 +1,11 @@
+package p20;
+
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Board implements ImmutableBoard<Integer>{
+public class T3Board extends Board<Integer> {
 	public int[] board = new int[9];
 	public Board parent = null;
 	public List<Integer> history = new ArrayList<>();
