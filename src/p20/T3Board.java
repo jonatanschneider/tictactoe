@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class T3Board extends Board<Integer> {
+    public T3Board() {
+        board = new int[9];
+    }
+    
 	@Override
 	public Board makeMove(Integer pos){
 		Board b = new Board();
