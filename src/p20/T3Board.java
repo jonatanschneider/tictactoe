@@ -11,8 +11,8 @@ public class T3Board extends Board<Integer> {
     }
 
     @Override
-    public Board makeMove(Integer pos) {
-        Board b = new T3Board();
+    public Board<Integer> makeMove(Integer pos) {
+        Board<Integer> b = new T3Board();
         b.board = Arrays.copyOf(board, 9);
         b.board[pos] = (isBeginnersTurn() ? 1 : -1);
         b.parent = this;

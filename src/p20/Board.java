@@ -6,18 +6,18 @@ import java.util.Queue;
 
 public abstract class Board<Move> implements ImmutableBoard<Move> {
     protected int[] board;
-    protected Board parent;
+    protected Board<Move> parent;
     protected Move move;
     protected boolean isFlipped;
 
     @Override
-    public ImmutableBoard undoMove() {
+    public ImmutableBoard<Move> undoMove() {
         return parent;
     }
 
     @Override
     public List<Move> getHistory() {
-        Board board = this;
+        Board<Move> board = this;
         Queue<Move> history = new LinkedList<>();
 
         while(board != null) {
@@ -30,7 +30,7 @@ public abstract class Board<Move> implements ImmutableBoard<Move> {
     }
 
     @Override
-    public ImmutableBoard flip() {
+    public ImmutableBoard<Move> flip() {
         isFlipped = !isFlipped;
         return this;
     }
