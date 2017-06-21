@@ -51,14 +51,17 @@ public class T3Board extends Board<Integer> {
 
     @Override
     public String toString() {
+        char[] repr = {'O', '.', 'X'};
         String s = "\n";
-        for (int i = 0; i < 9; i++) {
-            if (board[i] == 0) s += ". ";
-            else if (board[i] == 1) s += "X ";
-            else if (board[i] == -1) s += "O ";
-            if (i == 2 || i == 5) s += "\n";
+        for(int i = 0; i <= 2; i++) {
+            for(int j = 0; j <= 2; j++) {
+                // Row * 3 + Col = Field
+                // Invert player in case the board is flipped
+                int player = board[i * 3 + j] * (isFlipped ? -1 : 1);
+                s += repr[player + 1];
+            }
+            s += "\n";
         }
-        s += "\n";
         return s;
     }
 }
