@@ -1,6 +1,4 @@
 package p20;
-
-
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -32,7 +30,16 @@ public class Mills extends Board<Move>{
 						.filter(nb -> board[nb] == 0)
 						.mapToObj(nb -> new Move(nb, stone))
 						.forEach(freeNeighbours::add));
-			}		
+			
+			List<Integer> removableStones = removableStones();
+			for(Move move : freeNeighbours){
+				if(closesMill(move.to)){
+					for(Integer stone : removableStones){
+						moves.add(new Move(move.to, move.from, stone));
+					}
+				}
+			}
+		}
 		return moves;
 	}
 	
@@ -46,16 +53,21 @@ public class Mills extends Board<Move>{
 		List<Integer> stones = new ArrayList<>();
 		IntStream.range(0, board.length).filter(i -> board[i] == -turn).forEach(stones::add);	
 		for(Integer stone : stones){
-			for(int i = 0; i < mills[stone].length; i++){
-				int sum = board[stone];
-				for(int j = 0; j < mills[stone][i].length; j++){
-					sum += board[j];
-				}
-				if(Math.abs(sum) < 3) removableStones().add(stone);
+				if(closesMill(stone)) removableStones().add(stone);
 			}
-		}
 		//If there are no stones outside of a mill, every stone is removable
 		return removableStones().size() > 0 ? removableStones() : stones;
+	}
+	
+	public boolean closesMill(int move){
+		for(int i = 0; i < mills[move].length; i++){
+			int sum = board[move];
+			for(int j = 0; j < mills[move][i].length; j++){
+				sum += board[j];
+			}
+			if(Math.abs(sum) == 3) return true;
+		}
+		return false;
 	}
 	
 }
