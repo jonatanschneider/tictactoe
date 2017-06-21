@@ -52,9 +52,10 @@ public class Mills extends Board<Move>{
 	 */
 	public List<Integer> removableStones(){
 		List<Integer> removableStones = new ArrayList<>();
-		int turn = isBeginnersTurn() ? 1 : -1;
 		List<Integer> stones = new ArrayList<>();
-		IntStream.range(0, board.length).filter(i -> board[i] == -turn).forEach(stones::add);	
+		int turn = isBeginnersTurn() ? 1 : -1;
+		IntStream.range(0, board.length).filter(i -> board[i] == -turn).forEach(stones::add);
+		if(stones.size() == 3) return stones;
 		for(Integer stone : stones){
 				if(closesMill(stone)) removableStones.add(stone);
 			}
