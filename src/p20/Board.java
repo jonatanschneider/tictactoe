@@ -22,7 +22,7 @@ public abstract class Board<Move> implements ImmutableBoard<Move> {
 
         while(board != null) {
             if(board.move != null) {
-                history.add((Move) board.move);
+                history.add(board.move);
             }
             board = board.parent;
         }
