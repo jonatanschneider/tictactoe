@@ -5,8 +5,8 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class Mills extends Board<Move>{
-	//[24][2][2]
-	//board, number of mill (0,1), other mill fields
+	//size: [24][2][2]
+	//field number, number of mill (0,1), other mill fields
 	public int[][][] mills = { {{1,2},{6,7}}, {{0,2},{9,17}}, {{0,1},{3,4}}, {{2,4},{11,19}},
 			{{5,6},{2,3}}, {{4,6},{13,21}}, {{4,5},{0,7}}, {{0,6},{15,23}}, {{9,10},{14,15}}, {{8,10},{1,17}}, {{8,9},{11,12}},
 			{{10,12},{3,19}}, {{10,11},{13,14}}, {{12,14},{5,21}}, {{12,13},{8,15}}, {{8,14},{7,23}},
@@ -32,8 +32,30 @@ public class Mills extends Board<Move>{
 						.filter(nb -> board[nb] == 0)
 						.mapToObj(nb -> new Move(nb, stone))
 						.forEach(freeNeighbours::add));
-
-		}
+			}		
 		return moves;
 	}
+	
+	/**
+	 * Removable stones from the opponent player are those who are not in a mill, unless there are no outside a mill,
+	 * in that case every stone is removable.
+	 * @return List of removable stones
+	 */
+	public List<Integer> removableStones(){
+		int turn = isBeginnersTurn() ? 1 : -1;
+		List<Integer> stones = new ArrayList<>();
+		IntStream.range(0, board.length).filter(i -> board[i] == -turn).forEach(stones::add);	
+		for(Integer stone : stones){
+			for(int i = 0; i < mills[stone].length; i++){
+				int sum = board[stone];
+				for(int j = 0; j < mills[stone][i].length; j++){
+					sum += board[j];
+				}
+				if(Math.abs(sum) < 3) removableStones().add(stone);
+			}
+		}
+		//If there are no stones outside of a mill, every stone is removable
+		return removableStones().size() > 0 ? removableStones() : stones;
+	}
+	
 }
