@@ -46,8 +46,7 @@ public class T3Board extends Board<Integer> {
 
     @Override
     public boolean isDraw() {
-        if (moves().size() == 0) return true;
-        return false;
+        return moves().size() == 0;
     }
 
     @Override
