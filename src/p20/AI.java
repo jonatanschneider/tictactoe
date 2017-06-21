@@ -35,8 +35,6 @@ public class AI {
 		if (b.getHistory().size() == maxDepth) {
 			tempBestMove = monteCarlo(b, 1000);
 			return -10000;
-			//TODO
-			//return -(1000 - tempBestMove.getHistory().size()); //needs to be tested
 		}
 		int bestValue = alpha;
 		for (Move move : b.moves()) {
