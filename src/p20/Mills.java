@@ -1,7 +1,9 @@
 package p20;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Mills extends Board<Move>{
 	public int[][] mills = {{0,1,2}, {2,3,4}, {4,6,7}, {7,8,0}, {8,9,10}, {10,11,12}, {12,13,14}, 
@@ -14,28 +16,35 @@ public class Mills extends Board<Move>{
 	public List<Move> moves() {
 		ArrayList<Move> moves = new ArrayList<>();
 		if(getHistory().size() < 18){
-			for(int i = 0; i < board.length; i++){
-				if(board[i] == 0) moves.add(new Move(i));
-			}
+			Arrays.stream(board)
+				.filter(i -> board[i] == 0)
+				.forEach(i -> moves.add(new Move(i)));
 		}else{
+			int turn = isBeginnersTurn() ? 1 : -1;
+			ArrayList<Move> possibleNeighbours = new ArrayList<>();
+			Arrays.stream(board)
+			.filter(i -> board[i] == turn)
+			.forEach(stone -> Arrays.stream(neighbours[stone])
+					.filter(nb -> board[nb] == 0)
+					.mapToObj(nb -> new Move(nb, stone))
+					.forEach(possibleNeighbours::add));
+			
+				
 			for(int i = 0; i < board.length; i++){
 				if(board[i] == (isBeginnersTurn() ? 1 : -1)){
 					for(int move : neighbours[i]){  //find possible neighbours
-						
 						for(int outer = 0; outer < mills.length; outer++){
 							int sum = 0;
 							for(int inner = 0; inner < mills[outer].length; inner++){
 								sum += Math.abs(board[mills[outer][inner]]);
-								
+
 							}
 						}
-						
-						
-						if(board[move] == 0) moves.add(new Move(move, i)); //move to an empty neighbour field
 					}
 				}
 			}
 		}
+		return moves;
 	}
-	
+
 }
