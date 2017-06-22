@@ -25,24 +25,32 @@ public class Mills extends Board<Move>{
 					.filter(i -> board[i] == 0)
 					.mapToObj(i -> new Move(i))
 					.collect(Collectors.toList());
-		}else{
-			int turn = isBeginnersTurn() ? 1 : -1;
-			ArrayList<Move> freeNeighbours = new ArrayList<>();
-			IntStream.range(0, board.length)
-				.filter(i -> board[i] == turn)
-				.forEach(stone -> Arrays.stream(neighbours[stone])
-						.filter(nb -> board[nb] == 0)
-						.mapToObj(nb -> new Move(nb, stone))
-						.forEach(freeNeighbours::add));
-			
-			List<Integer> removableStones = removableStones();
-			for(Move move : freeNeighbours){
-				if(closesMill(move.to)){
-					for(Integer stone : removableStones){
-						moves.add(new Move(move.to, move.from, stone));
-					}
-				}else moves.add(move);
-			}
+		}
+		int turn = isBeginnersTurn() ? 1 : -1;
+		IntStream playerStones = IntStream.range(0, board.length).filter(i -> board[i] == turn);
+		ArrayList<Move> movableStones = new ArrayList<>();
+		
+		if(playerStones.count() == 3){
+			//moving to any position is allowed
+			playerStones.forEach(stone -> IntStream.range(0, board.length)
+					.filter(i -> board[i] == 0)
+					.mapToObj(i -> new Move(i, stone))
+					.forEach(movableStones::add));
+		}else{	
+			//moving to direct neighbours only
+			playerStones.forEach(stone -> Arrays.stream(neighbours[stone])
+					.filter(nb -> board[nb] == 0)
+					.mapToObj(nb -> new Move(nb, stone))
+					.forEach(movableStones::add));
+		}
+		
+		List<Integer> removableStones = removableStones();
+		for(Move move : movableStones){
+			if(closesMill(move.to)){
+				for(Integer stone : removableStones){
+					moves.add(new Move(move.to, move.from, stone));
+				}
+			}else moves.add(move);
 		}
 		return moves;
 	}
