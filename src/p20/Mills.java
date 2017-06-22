@@ -2,6 +2,7 @@ package p20;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Mills extends Board<Move>{
@@ -20,9 +21,10 @@ public class Mills extends Board<Move>{
 	public List<Move> moves() {
 		ArrayList<Move> moves = new ArrayList<>();
 		if(getHistory().size() < 18){
-			IntStream.range(0, board.length)
-				.filter(i -> board[i] == 0)
-				.forEach(i -> moves.add(new Move(i)));
+			return IntStream.range(0, board.length)
+					.filter(i -> board[i] == 0)
+					.mapToObj(i -> new Move(i))
+					.collect(Collectors.toList());
 		}else{
 			int turn = isBeginnersTurn() ? 1 : -1;
 			ArrayList<Move> freeNeighbours = new ArrayList<>();
