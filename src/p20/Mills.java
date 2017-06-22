@@ -39,7 +39,7 @@ public class Mills extends Board<Move>{
 					for(Integer stone : removableStones){
 						moves.add(new Move(move.to, move.from, stone));
 					}
-				}
+				}else moves.add(move);
 			}
 		}
 		return moves;
@@ -57,10 +57,10 @@ public class Mills extends Board<Move>{
 		IntStream.range(0, board.length).filter(i -> board[i] == -turn).forEach(stones::add);
 		if(stones.size() == 3) return stones;
 		for(Integer stone : stones){
-				if(closesMill(stone)) removableStones.add(stone);
+				if(closesMill(stone) == false) removableStones.add(stone);
 			}
 		//If there are no stones outside of a mill, every stone is removable
-		return removableStones().size() > 0 ? removableStones : stones;
+		return (removableStones.size() > 0 ? removableStones : stones);
 	}
 	
 	public boolean closesMill(int move){
@@ -73,5 +73,4 @@ public class Mills extends Board<Move>{
 		}
 		return false;
 	}
-	
 }
