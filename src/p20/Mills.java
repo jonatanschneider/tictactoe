@@ -27,10 +27,13 @@ public class Mills extends Board<Move>{
 					.collect(Collectors.toList());
 		}
 		int turn = isBeginnersTurn() ? 1 : -1;
-		IntStream playerStones = IntStream.range(0, board.length).filter(i -> board[i] == turn);
+		List<Integer> playerStones = IntStream.range(0, board.length)
+				.filter(i -> board[i] == turn)
+				.boxed().collect(Collectors.toList());
+		
 		ArrayList<Move> movableStones = new ArrayList<>();
 		
-		if(playerStones.count() == 3){
+		if(playerStones.size() == 3){
 			//moving to any position is allowed
 			playerStones.forEach(stone -> IntStream.range(0, board.length)
 					.filter(i -> board[i] == 0)
@@ -61,14 +64,14 @@ public class Mills extends Board<Move>{
 	 * @return List of removable stones
 	 */
 	public List<Integer> removableStones(){
-		List<Integer> removableStones = new ArrayList<>();
-		List<Integer> stones = new ArrayList<>();
 		int turn = isBeginnersTurn() ? 1 : -1;
-		IntStream.range(0, board.length).filter(i -> board[i] == -turn).forEach(stones::add);
+		List<Integer> stones = IntStream.range(0, board.length)
+				.filter(i -> board[i] == -turn)
+				.boxed().collect(Collectors.toList());
 		if(stones.size() == 3) return stones;
-		for(Integer stone : stones){
-				if(closesMill(stone) == false) removableStones.add(stone);
-			}
+		List<Integer> removableStones = stones.stream()
+				.filter(stone -> closesMill(stone) == false)
+				.collect(Collectors.toList());
 		//If there are no stones outside of a mill, every stone is removable
 		return (removableStones.size() > 0 ? removableStones : stones);
 	}
@@ -88,4 +91,5 @@ public class Mills extends Board<Move>{
 		}
 		return false;
 	}
+
 }
