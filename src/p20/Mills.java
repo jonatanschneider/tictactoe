@@ -20,33 +20,33 @@ public class Mills extends Board<Move>{
 	@Override
 	public List<Move> moves() {
 		ArrayList<Move> moves = new ArrayList<>();
-		if(getHistory().size() < 18){
+		if(getHistory().size() < 18){ //first phase
 			return IntStream.range(0, board.length)
 					.filter(i -> board[i] == 0)
 					.mapToObj(i -> new Move(i))
 					.collect(Collectors.toList());
 		}
+		
 		int turn = isBeginnersTurn() ? 1 : -1;
 		List<Integer> playerStones = IntStream.range(0, board.length)
 				.filter(i -> board[i] == turn)
 				.boxed().collect(Collectors.toList());
 		
 		ArrayList<Move> movableStones = new ArrayList<>();
-		
-		if(playerStones.size() == 3){
+		if(playerStones.size() == 3){ //third phase
 			//moving to any position is allowed
 			playerStones.forEach(stone -> IntStream.range(0, board.length)
 					.filter(i -> board[i] == 0)
 					.mapToObj(i -> new Move(i, stone))
 					.forEach(movableStones::add));
-		}else{	
+		}else{ //second phase
 			//moving to direct neighbours only
 			playerStones.forEach(stone -> Arrays.stream(neighbours[stone])
 					.filter(nb -> board[nb] == 0)
 					.mapToObj(nb -> new Move(nb, stone))
 					.forEach(movableStones::add));
 		}
-		
+		//second and third phase
 		List<Integer> removableStones = removableStones();
 		for(Move move : movableStones){
 			if(closesMill(move.to)){
@@ -65,19 +65,18 @@ public class Mills extends Board<Move>{
 	 */
 	public List<Integer> removableStones(){
 		int turn = isBeginnersTurn() ? 1 : -1;
-		List<Integer> stones = IntStream.range(0, board.length)
+		List<Integer> opponentStones = IntStream.range(0, board.length)
 				.filter(i -> board[i] == -turn)
 				.boxed().collect(Collectors.toList());
-		if(stones.size() == 3) return stones;
-		List<Integer> removableStones = stones.stream()
+		if(opponentStones.size() == 3) return opponentStones;
+		List<Integer> removableStones = opponentStones.stream()
 				.filter(stone -> closesMill(stone) == false)
 				.collect(Collectors.toList());
-		//If there are no stones outside of a mill, every stone is removable
-		return (removableStones.size() > 0 ? removableStones : stones);
+		return (removableStones.size() > 0 ? removableStones : opponentStones);
 	}
 	
 	/**
-	 * checks whether a stone closes a mill or not
+	 * Checks whether a stone closes a mill or not
 	 * @param stone to be set
 	 * @return true if the stone closes a mill
 	 */
