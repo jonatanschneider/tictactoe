@@ -63,10 +63,15 @@ public class Mills extends Board<Move>{
 		return (removableStones.size() > 0 ? removableStones : stones);
 	}
 	
-	public boolean closesMill(int move){
-		for(int i = 0; i < mills[move].length; i++){
-			int sum = board[move];
-			for(int j = 0; j < mills[move][i].length; j++){
+	/**
+	 * checks whether a stone closes a mill or not
+	 * @param stone to be set
+	 * @return true if the stone closes a mill
+	 */
+	public boolean closesMill(int stone){
+		for(int i = 0; i < mills[stone].length; i++){
+			int sum = board[stone];
+			for(int j = 0; j < mills[stone][i].length; j++){
 				sum += board[j];
 			}
 			if(Math.abs(sum) == 3) return true;
