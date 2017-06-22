@@ -7,10 +7,10 @@ import java.util.Random;
 
 @SuppressWarnings("unchecked")
 public class AI {
-	public Hashtable<Integer, Integer> transTable = new Hashtable<>();
-	public int depthOfBestMove;
-	public Move tempBestMove;
-	public List<Move> bestMoves = new ArrayList<>();
+	private Hashtable<Integer, Integer> transTable = new Hashtable<>();
+	private int depthOfBestMove;
+	private Move tempBestMove;
+	private List<Move> bestMoves = new ArrayList<>();
 		
 	public Move getBestMove(ImmutableBoard<Move> b, int maxDepth) {
 		depthOfBestMove = b.getHistory().size();
@@ -28,7 +28,7 @@ public class AI {
 		return bestMoves.get(0);
 	}
 	
-	public int alphaBeta(ImmutableBoard<Move> b, int alpha, int beta, int maxDepth) {
+	private int alphaBeta(ImmutableBoard<Move> b, int alpha, int beta, int maxDepth) {
 		if (b.isWin()) return -(1000 - b.getHistory().size());
 		if (b.isDraw()) return 0;
 		if (transTable.containsKey(b.hashCode())) return transTable.get(b.hashCode());
@@ -51,7 +51,7 @@ public class AI {
 		return bestValue;
 	}
 
-	public int playRandomly(ImmutableBoard<Move> b) {
+	private int playRandomly(ImmutableBoard<Move> b) {
 		while (b.isWin() == false) {
 			if (b.isDraw()) return 0;
 			Random r = new Random();
@@ -61,7 +61,7 @@ public class AI {
 		return (b.isBeginnersTurn() ? -1 : 1); // -turn
 	}
 
-	public int[] simulatePlays(ImmutableBoard<Move> b, int number) {
+	private int[] simulatePlays(ImmutableBoard<Move> b, int number) {
 		int[] count = new int[3];
 		while (number > 0) {
 			count[playRandomly(b) + 1] += 1;
@@ -70,7 +70,7 @@ public class AI {
 		return count;
 	}
 
-	public int[][] evaluateMoves(ImmutableBoard<Move> b, int number) {
+	private int[][] evaluateMoves(ImmutableBoard<Move> b, int number) {
 		int[][] values = new int[b.moves().size()][3];
 		for(int i = 0; i < b.moves().size(); i++){
 			values[i] = simulatePlays(b.makeMove(b.moves().get(i)), number);
