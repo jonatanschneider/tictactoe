@@ -5,25 +5,26 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 
-@SuppressWarnings("unchecked")
 public class AI {
 	private Hashtable<Integer, Integer> transTable = new Hashtable<>();
 	private int depthOfBestMove;
 	private Move tempBestMove;
+	private int tempBestValue;
 	private List<Move> bestMoves = new ArrayList<>();
 		
 	public Move getBestMove(ImmutableBoard<Move> b, int maxDepth) {
 		depthOfBestMove = b.getHistory().size();
-		int counter = 0;
-		while (counter < maxDepth) {
+		//iterative deeping depth-first search
+		for(int i = 0; i < maxDepth; i++){
+			//"killer-heuristic": start next 
 			if(bestMoves.size() > 0){
-				for(Move move : bestMoves){
-					b = b.makeMove(move);
-				}
+				for(Move move : bestMoves) b = b.makeMove(move);
 			}
-			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, maxDepth);
-			bestMoves.add(tempBestMove);
-			counter++;
+			int value = alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i + 1);
+			if(value > tempBestValue){
+				bestMoves.set(i, tempBestMove);
+				tempBestValue = value;
+			}
 		}
 		return bestMoves.get(0);
 	}
@@ -45,6 +46,7 @@ public class AI {
 				transTable.put(b.hashCode(), bestValue);
 				if (b.getHistory().size() == depthOfBestMove) {
 					tempBestMove = move;
+					tempBestValue = bestValue;
 				}
 			}
 		}
