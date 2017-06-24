@@ -85,7 +85,17 @@ public class Mills extends Board<Move>{
 		}
 		return moves;
 	}
-	
+
+	@Override
+	public boolean isWin() {
+    	// When game is not in first state (set stones, first 18 turns)
+		// AND no possible moves left OR only two stones left
+		// -> Game over
+		return getHistory().size() > 18 &&
+				(moves().size() == 0 ||
+				IntStream.of(board).filter(i -> i == (isBeginnersTurn() ? 1 : -1)).count() < 3);
+	}
+
 	/**
 	 * Removable stones from the opponent player are those who are not in a mill, unless there are no outside a mill,
 	 * in that case every stone is removable.
