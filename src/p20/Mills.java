@@ -119,4 +119,21 @@ public class Mills extends Board<Move>{
 		return false;
 	}
 
+    @Override
+    public String toString() {
+        String[] repr = {"O", ".", "X"};
+
+        String s =
+                "%s-----%s-----%s\n" +
+                "| %s---%s---%s |\n" +
+                "| | %s-%s-%s | |\n" +
+                "%s-%s-%s   %s-%s-%s\n" +
+                "| | %s-%s-%s | |\n" +
+                "| %s---%s---%s |\n" +
+                "%s-----%s-----%s";
+        // Map board's values to string array containing the field's character representation...
+        String[] ever = IntStream.of(board).mapToObj(i ->  repr[i + 1]).toArray(String[]::new);
+        // ... so we can easily format the board string
+        return String.format(s, ever);
+    }
 }
