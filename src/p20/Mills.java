@@ -17,6 +17,10 @@ public class Mills extends Board<Move>{
 			{9,15}, {1,8,10,17}, {9,11}, {3,10,12,19}, {11,13}, {5,12,14,21}, {13,15}, {7,8,14,23}, {17,23}, {9,16,18},
 			{17,19}, {11,18,20}, {19,21}, {13,20,22}, {21,23}, {15,16,22}};	
 	
+
+    public Mills() {
+        board = new int[24];
+    }
 	@Override
 	public List<Move> moves() {
 		ArrayList<Move> moves = new ArrayList<>();
