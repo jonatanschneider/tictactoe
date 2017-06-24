@@ -96,6 +96,11 @@ public class Mills extends Board<Move>{
 				IntStream.of(board).filter(i -> i == (isBeginnersTurn() ? 1 : -1)).count() < 3);
 	}
 
+	@Override
+	public boolean isDraw() {
+		throw new UnsupportedOperationException("Not implemented yet.");
+	}
+
 	/**
 	 * Removable stones from the opponent player are those who are not in a mill, unless there are no outside a mill,
 	 * in that case every stone is removable.
