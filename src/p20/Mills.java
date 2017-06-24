@@ -21,6 +21,30 @@ public class Mills extends Board<Move>{
     public Mills() {
         board = new int[24];
     }
+
+    @Override
+	public ImmutableBoard makeMove(Move move) {
+		Board<Move> b = new Mills();
+		b.board = Arrays.copyOf(board, board.length);
+		// Set new stone or move stone to new position
+		b.board[move.getTo()] = isBeginnersTurn() ? 1 : -1;
+		// Check if stone was moved...
+		if(move.getFrom() > -1) {
+			// ... Remove it from its preceeding position
+			b.board[move.getFrom()] = 0;
+		}
+		// Check if opposal stone hs to be removed...
+		if(move.getRemove() > -1) {
+			// ... Remove it
+			b.board[move.getRemove()] = 0;
+		}
+
+		b.parent = this;
+		b.move = move;
+		b.isFlipped = isFlipped;
+		return b;
+	}
+
 	@Override
 	public List<Move> moves() {
 		ArrayList<Move> moves = new ArrayList<>();
