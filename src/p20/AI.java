@@ -5,26 +5,14 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 
-public class AI {
+public class AI<Move> {
 	private Hashtable<Integer, Integer> transTable = new Hashtable<>();
-	private int depthOfBestMove;
-	private Move tempBestMove;
-	private int tempBestValue;
-	private List<Move> bestMoves = new ArrayList<>();
+	private List<Move> bestMoves = new ArrayList<>(); //Zugfolge
+	private List<Integer> bestMovesScore = new ArrayList<>();
 		
-	public Move getBestMove(ImmutableBoard<Move> b, int maxDepth) {
-		depthOfBestMove = b.getHistory().size();
-		//iterative deeping depth-first search
-		for(int i = 0; i < maxDepth; i++){
-			//"killer-heuristic": start next 
-			if(bestMoves.size() > 0){
-				for(Move move : bestMoves) b = b.makeMove(move);
-			}
-			int value = alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i + 1);
-			if(value > tempBestValue){
-				bestMoves.set(i, tempBestMove);
-				tempBestValue = value;
-			}
+	public Move getBestMove(ImmutableBoard<Move> b) {
+		for(int i = 1; i < 10; i++){
+			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i);
 		}
 		return bestMoves.get(0);
 	}
@@ -34,20 +22,33 @@ public class AI {
 		if (b.isDraw()) return 0;
 		if (transTable.containsKey(b.hashCode())) return transTable.get(b.hashCode());
 		if (depth == 0) {
-			tempBestMove = monteCarlo(b, 1000);
+			Move m = monteCarlo(b, 1000);
+			bestMoves.add(b.getHistory().size() - 1, m);
+			//dummy score cause monteCarlo gives no guarantees about the result
+			bestMovesScore.add(b.getHistory().size() - 1, -10000);
 			return -10000;
 		}
 		int bestValue = alpha;
+		if(bestMoves.size() >= b.getHistory().size()){
+		}
 		for (Move move : b.moves()) {
 			int value = -alphaBeta(b.makeMove(move), -beta, -bestValue, depth - 1);
 			if (value > bestValue) {
 				bestValue = value;
 				if (bestValue >= beta) break;
 				transTable.put(b.hashCode(), bestValue);
-				if (b.getHistory().size() == depthOfBestMove) {
-					tempBestMove = move;
-					tempBestValue = bestValue;
+				//Prüfe ob der neue Wert für diese Tiefe besser ist als der alte
+				//Wenn ja setze den besseren Wert und speichere den move für diese Tiefe
+				if(bestMovesScore.size() >= b.getHistory().size()){
+					if(bestMovesScore.get(b.getHistory().size()) < bestValue){
+						bestMovesScore.add(b.getHistory().size(), bestValue);
+						bestMoves.add(b.getHistory().size(), move);
+					}
+				}else{
+					bestMovesScore.add(bestValue);
+					bestMoves.add(move);
 				}
+				
 			}
 		}
 		return bestValue;
