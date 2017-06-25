@@ -48,35 +48,41 @@ public class Mills extends Board<Move>{
 	@Override
 	public List<Move> moves() {
 		ArrayList<Move> moves = new ArrayList<>();
-		if(getHistory().size() < 18){ //first phase
-			return IntStream.range(0, board.length)
+		ArrayList<Move> movesWithoutRemove = new ArrayList<>();
+		//first phase
+		if(getHistory().size() < 18){
+			IntStream.range(0, board.length)
 					.filter(i -> board[i] == 0)
 					.mapToObj(i -> new Move(i))
-					.collect(Collectors.toList());
+					.forEach(movesWithoutRemove::add);
+			//return if mill closing is not possible yet
+			if(getHistory().size() < 5) return movesWithoutRemove;
 		}
-		
-		int turn = isBeginnersTurn() ? 1 : -1;
-		List<Integer> playerStones = IntStream.range(0, board.length)
-				.filter(i -> board[i] == turn)
-				.boxed().collect(Collectors.toList());
-		
-		ArrayList<Move> movableStones = new ArrayList<>();
-		if(playerStones.size() == 3){ //third phase
-			//moving to any position is allowed
-			playerStones.forEach(stone -> IntStream.range(0, board.length)
-					.filter(i -> board[i] == 0)
-					.mapToObj(i -> new Move(i, stone))
-					.forEach(movableStones::add));
-		}else{ //second phase
-			//moving to direct neighbours only
-			playerStones.forEach(stone -> Arrays.stream(neighbours[stone])
-					.filter(nb -> board[nb] == 0)
-					.mapToObj(nb -> new Move(nb, stone))
-					.forEach(movableStones::add));
+		else{
+			int turn = isBeginnersTurn() ? 1 : -1;
+			List<Integer> playerStones = IntStream.range(0, board.length)
+					.filter(i -> board[i] == turn)
+					.boxed().collect(Collectors.toList());
+			//second phase
+			if(playerStones.size() > 3){
+				//moving to direct neighbours only
+				playerStones.forEach(stone -> Arrays.stream(neighbours[stone])
+						.filter(nb -> board[nb] == 0)
+						.mapToObj(nb -> new Move(nb, stone))
+						.forEach(movesWithoutRemove::add));
+			}
+			//third phase
+			else{
+				//moving to any position is allowed
+				playerStones.forEach(stone -> IntStream.range(0, board.length)
+						.filter(i -> board[i] == 0)
+						.mapToObj(i -> new Move(i, stone))
+						.forEach(movesWithoutRemove::add));
+			}
 		}
-		//second and third phase
+		//all phases: check for mill closing
 		List<Integer> removableStones = removableStones();
-		for(Move move : movableStones){
+		for(Move move : movesWithoutRemove){
 			if(closesMill(move.to)){
 				for(Integer stone : removableStones){
 					moves.add(new Move(move.to, move.from, stone));
