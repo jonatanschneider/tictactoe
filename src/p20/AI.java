@@ -63,28 +63,29 @@ public class AI {
 		return (b.isBeginnersTurn() ? -1 : 1); // -turn
 	}
 
-	private int[] simulatePlays(ImmutableBoard<Move> b, int number) {
+	private int[] simulatePlays(ImmutableBoard<Move> b, int times) {
 		int[] count = new int[3];
-		while (number > 0) {
+		while (times > 0) {
+			//0 = -turn won, 1 = draw, 2 = +turn won
 			count[playRandomly(b) + 1] += 1;
-			number -= 1;
+			times -= 1;
 		}
 		return count;
 	}
 
-	private int[][] evaluateMoves(ImmutableBoard<Move> b, int number) {
+	private int[][] evaluateMoves(ImmutableBoard<Move> b, int times) {
 		int[][] values = new int[b.moves().size()][3];
 		for(int i = 0; i < b.moves().size(); i++){
-			values[i] = simulatePlays(b.makeMove(b.moves().get(i)), number);
+			values[i] = simulatePlays(b.makeMove(b.moves().get(i)), times);
 		}
 		return values;
 	}
 	
-	public Move monteCarlo(ImmutableBoard<Move> b, int number) {
+	public Move monteCarlo(ImmutableBoard<Move> b, int times) {
 		int[] values = new int[b.moves().size()];
 		int maxValue = Integer.MIN_VALUE;
 		int indexOfMaxValue = -1;
-		int[][] evaluated = evaluateMoves(b, 1000);
+		int[][] evaluated = evaluateMoves(b, 100);
 		for (int i = 0; i < values.length; i++) {
 			if (evaluated[i] != null) {
 				values[i] = evaluated[i][2] * (b.isBeginnersTurn() ? 1 : -1);
