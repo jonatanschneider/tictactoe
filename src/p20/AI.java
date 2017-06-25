@@ -29,20 +29,20 @@ public class AI {
 		return bestMoves.get(0);
 	}
 	
-	private int alphaBeta(ImmutableBoard<Move> b, int alpha, int beta, int maxDepth) {
+	private int alphaBeta(ImmutableBoard<Move> b, int alpha, int beta, int depth) {
 		if (b.isWin()) return -(1000 - b.getHistory().size());
 		if (b.isDraw()) return 0;
 		if (transTable.containsKey(b.hashCode())) return transTable.get(b.hashCode());
-		if (b.getHistory().size() == maxDepth) {
+		if (depth == 0) {
 			tempBestMove = monteCarlo(b, 1000);
 			return -10000;
 		}
 		int bestValue = alpha;
 		for (Move move : b.moves()) {
-			int value = -alphaBeta(b.makeMove(move), -beta, -bestValue, maxDepth);
+			int value = -alphaBeta(b.makeMove(move), -beta, -bestValue, depth - 1);
 			if (value > bestValue) {
 				bestValue = value;
-				if (bestValue >= beta) continue;
+				if (bestValue >= beta) break;
 				transTable.put(b.hashCode(), bestValue);
 				if (b.getHistory().size() == depthOfBestMove) {
 					tempBestMove = move;
