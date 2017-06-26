@@ -1,6 +1,7 @@
 package p20;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -104,7 +105,27 @@ public class Mills extends Board<Move>{
 
 	@Override
 	public boolean isDraw() {
-		throw new UnsupportedOperationException("Not implemented yet.");
+    	Board next = this;
+    	// Store play positions based on the board's hashCode counting the occurences of the play position
+		HashMap<Integer, Integer> playPositions = new HashMap<>();
+
+		// Move along board history..
+		while(next != null && next.move != null) {
+			int hashCode = next.hashCode();
+			// When stone got removed...
+			if(((Move) next.move).getRemove() > -1) {
+				// ... Return false as the play position can't be the same as before.
+				return false;
+			}
+			// In case the play position occures for the third time the board matches the conditions for a draw
+			if(playPositions.containsKey(hashCode) && playPositions.get(hashCode) == 2) {
+				return true;
+			}
+			// Put the current play position in the playPosition storage
+			playPositions.put(hashCode, (playPositions.containsKey(hashCode) ? 2 : 1));
+			next = next.parent;
+		}
+		return false;
 	}
 
 	/**
