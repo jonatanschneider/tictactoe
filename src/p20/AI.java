@@ -111,7 +111,7 @@ public class AI<Move> {
 		int[] values = new int[b.moves().size()];
 		int maxValue = Integer.MIN_VALUE;
 		int indexOfMaxValue = -1;
-		int[][] evaluated = evaluateMoves(b, 1000);
+		int[][] evaluated = evaluateMoves(b, 100);
 		for (int i = 0; i < values.length; i++) {
 			if (evaluated[i] != null) {
 				values[i] = evaluated[i][2] * (b.isBeginnersTurn() ? 1 : -1);
