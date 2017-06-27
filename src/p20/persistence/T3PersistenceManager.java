@@ -12,24 +12,14 @@ public class T3PersistenceManager extends BoardPersistenceManager<T3Board> {
     @Override
     protected String boardToString(T3Board board) {
         // Map board's history (Integers) to strings and join them
-        String savegame = board.getHistory().stream().sequential().map(i -> i.toString()).collect(Collectors.joining(","));
-        // Add flipped flag
-        if (board.isFlipped()) {
-            savegame += ",f";
-        }
-        // Add terminating line break according to specification
-        return savegame + "\n";
+        return board.getHistory().stream().map(i -> i.toString()).collect(Collectors.joining(","));
     }
 
     @Override
-    protected T3Board stringToBoard(String savegame) {
+    protected T3Board stringToBoard(String savegame, boolean isFlipped) {
         T3Board board = new T3Board();
-        // If the board is flipped (According to specification)...
-        if(savegame.toLowerCase().indexOf("f") > -1) {
-            // ... Flip the board
+        if(isFlipped) {
             board.flip();
-            // ... Cut off the flipped flag so the move generation stream works properly
-            savegame = savegame.substring(0, savegame.length() - 3);
         }
         // Split the string and generate an Integer array containing the moves
         Integer[] moves = Arrays.stream(savegame.split(","))

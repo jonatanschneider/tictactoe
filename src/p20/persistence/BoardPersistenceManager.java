@@ -18,11 +18,29 @@ public abstract class BoardPersistenceManager<T extends ImmutableBoard> {
             // TODO: handle exception properly
             e.printStackTrace();
         }
-        return stringToBoard(savegame);
+        // Flag passed to implementing class indicating whether the board is flipped
+        boolean isFlipped = false;
+
+        // Cut off terminating line break
+        savegame = savegame.substring(0, savegame.length() - 1);
+
+        // If the there is a flipped flag...
+        if(savegame.toLowerCase().indexOf("f") > -1) {
+            isFlipped = true;
+            // ... Cut off the flipped flag so the move generation stream works properly
+            savegame = savegame.substring(0, savegame.length() - 2);
+        }
+        return stringToBoard(savegame, isFlipped);
     }
 
     public boolean save(T board, Path path) {
         String savegame = boardToString(board);
+        // Add flipped flag
+        if (board.isFlipped()) {
+            savegame += ",f";
+        }
+        // Add terminating line break according to specification
+        savegame += "\n";
         try {
             Files.write(path, savegame.getBytes());
         } catch(IOException e) {
@@ -33,5 +51,5 @@ public abstract class BoardPersistenceManager<T extends ImmutableBoard> {
 
     protected abstract String boardToString(T board);
 
-    protected abstract T stringToBoard(String savegame);
+    protected abstract T stringToBoard(String savegame, boolean isFlipped);
 }
