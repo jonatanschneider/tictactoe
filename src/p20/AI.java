@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AI<Move> {
-	private Hashtable<Integer, Integer> transTable = new Hashtable<>();
-	private Hashtable<Integer, Move> transTableMove = new Hashtable<>();
 	private int beginningDepth;
+	private Hashtable<Integer, Integer> cacheScore = new Hashtable<>();
+	private Hashtable<Integer, Move> cacheMove = new Hashtable<>();
 	private HashMap<Integer, List<Move>> killerMoves = new HashMap<>();
 	private HashMap<Integer, Move> bestMoves = new HashMap<>();
 	private HashMap<Integer, Integer> bestMovesScore = new HashMap<>();
-	public HashMap<Integer, Move> getListOfBestMoves(){ return bestMoves; }
+	public List<Move> getListOfBestMoves(){return new ArrayList<Move>(bestMoves.values());}
 	
 	public Move getBestMove(ImmutableBoard<Move> b, int maxDepth) {
 		beginningDepth = b.getHistory().size();
@@ -26,19 +26,18 @@ public class AI<Move> {
 
 	public int alphaBeta(ImmutableBoard<Move> b, int alpha, int beta, int depth) {
 		int boardDepth = b.getHistory().size();
-		if(depth == 5) System.out.println("depth = 8");
 		if (b.isWin()) return -(1000 - boardDepth);
 		if (b.isDraw()) return 0;
-		if (transTable.containsKey(b.hashCode())){
-			bestMoves.put(boardDepth, transTableMove.get(b.hashCode()));
-			bestMovesScore.put(boardDepth, transTable.get(b.hashCode()));
-			return transTable.get(b.hashCode());
+		if (cacheScore.containsKey(b.hashCode())){
+			bestMoves.put(boardDepth, cacheMove.get(b.hashCode()));
+			bestMovesScore.put(boardDepth, cacheScore.get(b.hashCode()));
+			return cacheScore.get(b.hashCode());
 		}
 		if (depth == 0) {
 			Move temp = monteCarlo(b, 100);
 			bestMoves.put(boardDepth -  1, temp);
 			bestMovesScore.put(boardDepth - 1, -1);
-			return Integer.MAX_VALUE;
+			return -Integer.MIN_VALUE;
 		}
 		int bestValue = alpha;
 		List<Move> boardMoves = b.moves();
@@ -65,14 +64,14 @@ public class AI<Move> {
 				}
 				if(bestMovesScore.containsKey(boardDepth)){
 					if(bestValue > bestMovesScore.get(boardDepth)){
-						transTable.put(b.hashCode(), bestValue);
-						transTableMove.put(b.hashCode(), move);
+						cacheScore.put(b.hashCode(), bestValue);
+						cacheMove.put(b.hashCode(), move);
 						bestMoves.put(boardDepth, move);
 						bestMovesScore.put(boardDepth, bestValue);
 					}
 				}else{
-					transTable.put(b.hashCode(), bestValue);
-					transTableMove.put(b.hashCode(), move);
+					cacheScore.put(b.hashCode(), bestValue);
+					cacheMove.put(b.hashCode(), move);
 					bestMoves.put(boardDepth, move);
 					bestMovesScore.put(boardDepth, bestValue);
 				}
