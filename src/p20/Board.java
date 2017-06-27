@@ -1,5 +1,6 @@
 package p20;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -18,15 +19,15 @@ public abstract class Board<Move> implements ImmutableBoard<Move> {
     @Override
     public List<Move> getHistory() {
         Board<Move> board = this;
-        Queue<Move> history = new LinkedList<>();
+        ArrayList<Move> history = new ArrayList<>();
 
         while(board != null) {
             if(board.move != null) {
-                history.add(board.move);
+                history.add(0, board.move);
             }
             board = board.parent;
         }
-        return (List) history;
+        return history;
     }
 
     @Override
