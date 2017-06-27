@@ -18,4 +18,16 @@ public class Move {
 	public Move(int to){
 		this(to, -1, -1);
 	}
+
+	public int getTo() {
+		return to;
+	}
+
+	public int getFrom() {
+		return from;
+	}
+
+	public int getRemove() {
+		return remove;
+	}
 }
