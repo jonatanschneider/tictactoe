@@ -84,7 +84,7 @@ public class Mills extends Board<Move>{
 		//all phases: check for mill closing
 		List<Integer> removableStones = removableStones();
 		for(Move move : movesWithoutRemove){
-			if(closesMill(move.to)){
+			if(closesMill(move)){
 				for(Integer stone : removableStones){
 					moves.add(new Move(move.to, move.from, stone));
 				}
@@ -140,7 +140,7 @@ public class Mills extends Board<Move>{
 				.boxed().collect(Collectors.toList());
 		if(opponentStones.size() == 3) return opponentStones;
 		List<Integer> removableStones = opponentStones.stream()
-				.filter(stone -> closesMill(stone) == false)
+				.filter(stone -> closesMill(new Move(stone)) == false)
 				.collect(Collectors.toList());
 		return (removableStones.size() > 0 ? removableStones : opponentStones);
 	}
@@ -150,11 +150,15 @@ public class Mills extends Board<Move>{
 	 * @param stone to be set
 	 * @return true if the stone closes a mill
 	 */
-	private boolean closesMill(int stone){
-		for(int i = 0; i < mills[stone].length; i++){
+	private boolean closesMill(Move move){
+		for(int i = 0; i < mills[move.getTo()].length; i++){
 			int sum = (isBeginnersTurn() ? 1 : -1);
-			for(int j = 0; j < mills[stone][i].length; j++){
-				sum += board[mills[stone][i][j]];
+			for(int j = 0; j < mills[move.getTo()][i].length; j++){
+				//make sure a stone which gets moved does not raise the sum
+				if(move.from != -1 && move.from == mills[move.getTo()][i][j]){
+					sum += board[mills[move.getTo()][i][j]];
+				}
+				
 			}
 			if(Math.abs(sum) == 3) return true;
 		}
