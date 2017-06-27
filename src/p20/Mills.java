@@ -152,11 +152,11 @@ public class Mills extends Board<Move>{
 	 */
 	private boolean closesMill(int stone){
 		for(int i = 0; i < mills[stone].length; i++){
-			int sum = 0;
+			int sum = (isBeginnersTurn() ? 1 : -1);
 			for(int j = 0; j < mills[stone][i].length; j++){
 				sum += board[mills[stone][i][j]];
 			}
-			if(Math.abs(sum) == 2) return true;
+			if(Math.abs(sum) == 3) return true;
 		}
 		return false;
 	}
