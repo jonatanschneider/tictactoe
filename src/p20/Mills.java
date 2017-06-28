@@ -98,7 +98,7 @@ public class Mills extends Board<Move>{
     	// When game is not in first state (set stones, first 18 turns)
 		// AND no possible moves left OR only two stones left
 		// -> Game over
-		return getHistory().size() > 18 &&
+		return getHistory().size() > 17 &&
 				(moves().size() == 0 ||
 				IntStream.of(board).filter(i -> i == (isBeginnersTurn() ? 1 : -1)).count() < 3);
 	}
