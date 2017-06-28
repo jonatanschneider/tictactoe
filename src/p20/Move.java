@@ -30,4 +30,27 @@ public class Move {
 	public int getRemove() {
 		return remove;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Move{" +
+				"to=" + to +
+				", from=" + from +
+				", remove=" + remove +
+				'}';
+	}
+
+	public String toSaveString() {
+		if(from > -1 && to > -1 && remove > -1) {
+			return from + "-" + to + "-" + remove;
+		}
+		if(from > -1 && to > -1) {
+			return from + "-" + to;
+		}
+		if(to > -1 && remove > -1) {
+			return to + "-" + remove;
+		}
+		return "" + to;
+	}
 }
