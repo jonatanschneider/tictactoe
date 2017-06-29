@@ -2,7 +2,6 @@ package p20;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,8 +16,8 @@ public class AI<Move> {
 	
 	public Move getBestMove(ImmutableBoard<Move> b, int maxDepth) {
 		beginningDepth = b.getHistory().size();
-		for(int i = 1; i < maxDepth - b.getHistory().size() + 1; i++){
-			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i);
+		for(int i = 0; i < maxDepth; i++){
+			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i + 1);
 			System.out.println(bestMoves);
 		}
 		return bestMoves.get(beginningDepth);
@@ -111,7 +110,7 @@ public class AI<Move> {
 		int[] values = new int[b.moves().size()];
 		int maxValue = Integer.MIN_VALUE;
 		int indexOfMaxValue = -1;
-		int[][] evaluated = evaluateMoves(b, 100);
+		int[][] evaluated = evaluateMoves(b, number);
 		for (int i = 0; i < values.length; i++) {
 			if (evaluated[i] != null) {
 				values[i] = evaluated[i][2] * (b.isBeginnersTurn() ? 1 : -1);
