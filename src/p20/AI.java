@@ -85,13 +85,15 @@ public class AI<Move> {
 	}
 
 	private int playRandomly(ImmutableBoard<Move> b) {
+		int starter = b.isBeginnersTurn() ? 1 : -1;
 		while (b.isWin() == false) {
 			if (b.isDraw()) return 0;
+			List<Move> moves = b.moves();
 			Random r = new Random();
-			Move randomMove = b.moves().get(r.nextInt(b.moves().size()));
+			Move randomMove = moves.get(r.nextInt(moves.size()));
 			b = b.makeMove(randomMove);
 		}
-		return (b.isBeginnersTurn() ? -1 : 1);
+		return starter == (b.isBeginnersTurn() ? -1 : 1) ? -1 : 1;
 	}
 
 	private int[] simulatePlays(ImmutableBoard<Move> b, int number) {
@@ -118,7 +120,7 @@ public class AI<Move> {
 		int[][] evaluated = evaluateMoves(b, number);
 		for (int i = 0; i < values.length; i++) {
 			if (evaluated[i] != null) {
-				values[i] = evaluated[i][2] * (b.isBeginnersTurn() ? 1 : -1);
+				values[i] = evaluated[i][2];
 				if (values[i] > maxValue) {
 					maxValue = values[i];
 					indexOfMaxValue = i;
