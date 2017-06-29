@@ -156,7 +156,7 @@ public class Mills extends Board<Move>{
 			int sum = (isBeginnersTurn() ? 1 : -1);
 			for(int j = 0; j < mills[move.getTo()][i].length; j++){
 				//make sure a stone which gets moved does not raise the sum
-				if(move.from != -1 && move.from == mills[move.getTo()][i][j]){
+				iif(move.from == -1 || move.from != mills[move.getTo()][i][j]){ 
 					sum += board[mills[move.getTo()][i][j]];
 				}
 				
