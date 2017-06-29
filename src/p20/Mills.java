@@ -64,6 +64,7 @@ public class Mills extends Board<Move>{
 			List<Integer> playerStones = IntStream.range(0, board.length)
 					.filter(i -> board[i] == turn)
 					.boxed().collect(Collectors.toList());
+			if(playerStones.size() < 3) return new ArrayList<>();
 			//second phase
 			if(playerStones.size() > 3){
 				//moving to direct neighbours only
