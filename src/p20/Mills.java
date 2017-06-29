@@ -141,11 +141,21 @@ public class Mills extends Board<Move>{
 				.boxed().collect(Collectors.toList());
 		if(opponentStones.size() == 3) return opponentStones;
 		List<Integer> removableStones = opponentStones.stream()
-				.filter(stone -> closesMill(new Move(stone)) == false)
+				.filter(stone -> inMill(stone) == false)
 				.collect(Collectors.toList());
 		return (removableStones.size() > 0 ? removableStones : opponentStones);
 	}
 	
+	private boolean inMill(int stone){
+		for(int i = 0; i < mills[stone].length; i++){
+			int sum = board[stone];
+			sum += board[mills[stone][i][0]];
+			sum += board[mills[stone][i][1]];
+			if(Math.abs(sum) == 3) return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Checks whether a stone closes a mill or not
 	 * @param stone to be set
@@ -156,7 +166,7 @@ public class Mills extends Board<Move>{
 			int sum = (isBeginnersTurn() ? 1 : -1);
 			for(int j = 0; j < mills[move.getTo()][i].length; j++){
 				//make sure a stone which gets moved does not raise the sum
-				iif(move.from == -1 || move.from != mills[move.getTo()][i][j]){ 
+				if(move.from == -1 || move.from != mills[move.getTo()][i][j]){ 
 					sum += board[mills[move.getTo()][i][j]];
 				}
 				
