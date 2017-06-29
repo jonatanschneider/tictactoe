@@ -16,6 +16,7 @@ public class AI<Move> {
 	
 	public Move getBestMove(ImmutableBoard<Move> b, int maxDepth) {
 		beginningDepth = b.getHistory().size();
+		//iterative depth deepening first search
 		for(int i = 0; i < maxDepth; i++){
 			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i + 1);
 			System.out.println(bestMoves);
@@ -27,11 +28,13 @@ public class AI<Move> {
 		int boardDepth = b.getHistory().size();
 		if (b.isWin()) return -(1000 - boardDepth);
 		if (b.isDraw()) return 0;
+		//Transposition Table
 		if (cacheScore.containsKey(b.hashCode())){
 			bestMoves.put(boardDepth, cacheMove.get(b.hashCode()));
 			bestMovesScore.put(boardDepth, cacheScore.get(b.hashCode()));
 			return cacheScore.get(b.hashCode());
 		}
+		//Monte-Carlo
 		if (depth == 0) {
 			Move temp = monteCarlo(b, 100);
 			bestMoves.put(boardDepth -  1, temp);
@@ -41,6 +44,7 @@ public class AI<Move> {
 		int bestValue = alpha;
 		List<Move> boardMoves = b.moves();
 		List<Move> moves = new ArrayList<>();
+		//Sort killer-moves
 		//make sure killer moves get checked first
 		if(killerMoves.get(boardDepth + 1) != null){
 			for(Move m : killerMoves.get(boardDepth + 1)){
@@ -54,6 +58,7 @@ public class AI<Move> {
 			if (value > bestValue) {
 				bestValue = value;
 				if (bestValue >= beta){
+					//Save killer-moves
 					if(!killerMoves.containsKey(boardDepth)){
 						killerMoves.put(boardDepth, new ArrayList<Move>());
 					}
