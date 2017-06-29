@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class AI<Move> {
 	private int beginningDepth;
+	private int monteCarloDepth;
 	private Hashtable<Integer, Integer> cacheScore = new Hashtable<>();
 	private Hashtable<Integer, Move> cacheMove = new Hashtable<>();
 	private HashMap<Integer, List<Move>> killerMoves = new HashMap<>();
@@ -14,11 +15,13 @@ public class AI<Move> {
 	private HashMap<Integer, Integer> bestMovesScore = new HashMap<>();
 	public List<Move> getListOfBestMoves(){return new ArrayList<Move>(bestMoves.values());}
 	
-	public Move getBestMove(ImmutableBoard<Move> b, int maxDepth) {
-		beginningDepth = b.getHistory().size();
+	public Move getBestMove(ImmutableBoard<Move> b, int depths, int monteCarloDepth) {
+		this.beginningDepth = b.getHistory().size();
+		this.monteCarloDepth = monteCarloDepth;
 		//iterative depth deepening first search
-		for(int i = 0; i < maxDepth; i++){
-			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i + 1);
+		int maxDepth = beginningDepth + depths;
+		for(int i = beginningDepth; i < maxDepth; i++){
+			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i);
 			System.out.println(bestMoves);
 		}
 		return bestMoves.get(beginningDepth);
@@ -35,10 +38,10 @@ public class AI<Move> {
 			return cacheScore.get(b.hashCode());
 		}
 		//Monte-Carlo
-		if (depth == 0) {
-			Move temp = monteCarlo(b, 100);
-			bestMoves.put(boardDepth -  1, temp);
-			bestMovesScore.put(boardDepth - 1, -1);
+		if (depth == beginningDepth) {
+			Move temp = monteCarlo(b);
+			bestMoves.put(boardDepth, temp);
+			bestMovesScore.put(boardDepth, -1);
 			return -Integer.MIN_VALUE;
 		}
 		int bestValue = alpha;
@@ -113,11 +116,11 @@ public class AI<Move> {
 		return values;
 	}
 
-	public Move monteCarlo(ImmutableBoard<Move> b, int number) {
+	public Move monteCarlo(ImmutableBoard<Move> b) {
 		int[] values = new int[b.moves().size()];
 		int maxValue = Integer.MIN_VALUE;
 		int indexOfMaxValue = -1;
-		int[][] evaluated = evaluateMoves(b, number);
+		int[][] evaluated = evaluateMoves(b, monteCarloDepth);
 		for (int i = 0; i < values.length; i++) {
 			if (evaluated[i] != null) {
 				values[i] = evaluated[i][2];
