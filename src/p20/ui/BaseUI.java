@@ -67,8 +67,54 @@ public abstract class BaseUI<T> {
         }
     }
 
+    /**
+     * Processes the user input and invokes a method matching the command.
+     * Prints an error message in case the input doesn't match any command.
+     * @param input user input
+     */
     private void processInput(String input) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        input = input.toLowerCase();
+
+        if(isMatch(input, "flip")) {
+            flip();
+        } else if(isMatch(input, "undo")) {
+            undo();
+        } else if(isMatch(input, "new")) {
+            startNew();
+        } else if(isMatch(input, "exit")) {
+            exit();
+        } else if(isMatch(input, "save")) {
+            // TODO: get path
+            //save();
+        } else if(isMatch(input, "load")) {
+            // TODO: get path
+            //load();
+        } else if(isMatch(input, "help", "?")) {
+            help();
+        } else if(move(input)) {
+            // Empty, Action is in if's head so it effects the execution of the else
+            // branch indicating that there was no action matching the user's input
+        } else {
+            // Output default message indicating that the input could not be process
+            System.out.println("Das habe ich leider nicht verstanden.");
+        }
+    }
+
+    /**
+     * Checks if the input matches any the passed commands.
+     * The input must match the beginning (or the whole word) to conform a match.
+     * @param input user input to check for
+     * @param commands variable amount of commands (varargs) that could get matched
+     * @return Returns {@code true} in case the input matches any of the passed commands
+     */
+    private boolean isMatch(String input, String... commands) {
+        for(String command : commands) {
+            // Check if the input string matches the beginning of the command
+            if(command.indexOf(input) == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
