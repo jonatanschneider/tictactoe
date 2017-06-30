@@ -59,12 +59,8 @@ public abstract class BaseUI<T> {
                 printInputInstructions();
                 processInput(scanner.next());
             } else {
-                // TODO: run AI, when available
-                // TMP: make first possible move
-                List<T> moves = board.moves();
-                if(!moves.isEmpty()) {
-                    board = board.makeMove(moves.get(0));
-                }
+            	T move = runAI();        
+            	board = board.makeMove(move);
             }
         }
     }
@@ -179,4 +175,11 @@ public abstract class BaseUI<T> {
      * @return {@code true} when the attempted move succeeded
      */
     protected abstract boolean move(String input);
+    
+    /**
+     * Runs the AI with suitable arguments for the chosen game
+     * @return move that the ai calculated
+     */
+    protected abstract T runAI();
+
 }
