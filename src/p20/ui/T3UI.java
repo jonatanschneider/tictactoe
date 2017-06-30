@@ -18,7 +18,18 @@ public class T3UI extends BaseUI<Integer> {
 
     @Override
     protected void help() {
-        System.out.println("T3 Help...");
+        String t3Help = "Spielen Sie Tic-Tac-Toe gegen den Computer. Die Positionen des Spielfelds sind von 1-9 nummeriert:\n" +
+                "\n" +
+                "1 2 3\n" +
+                "4 5 6\n" +
+                "7 8 9\n" +
+                "\n" +
+                "Es wird abwechselnd gezogen. Gewonnen hat, wer zuerst drei Spielsteine (entweder X oder O) in Reihe anordnet." +
+                "\n\n" +
+                "1-9\t\t\tPosition des Feldes, das man besetzten möchte\n" +
+                "0\t\t\tDer Computer macht für Sie einen Zug\n" +
+                getBaseHelp();
+        System.out.println(t3Help);
     }
 
     @Override
