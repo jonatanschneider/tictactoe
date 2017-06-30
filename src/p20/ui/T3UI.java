@@ -59,7 +59,10 @@ public class T3UI extends BaseUI<Integer> {
         } catch (NumberFormatException e) {
             return false;
         }
-        // TODO: make AI move on input: 0
+        if(field == 0){
+        	int move = runAI();
+        	board = board.makeMove(move);
+        }
         // TODO: print error message / move suggestions here
         // Map human friendly field number to count-by-zero
         if(board.moves().contains(field - 1)) {
