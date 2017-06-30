@@ -10,6 +10,8 @@ import java.util.Scanner;
 /**
  * This class provides a skeletal implementation of an console based user interface
  * for games implementing the {@link ImmutableBoard} interface.
+ *
+ * @param <T> the move type of this game
  */
 public abstract class BaseUI<T> {
     /**
