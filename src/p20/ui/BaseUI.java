@@ -118,7 +118,7 @@ public abstract class BaseUI<T> {
     }
 
     /**
-     * Flips the baord
+     * Flips the board
      */
     private void flip() {
         board.flip();
