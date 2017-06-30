@@ -62,6 +62,7 @@ public class T3UI extends BaseUI<Integer> {
         if(field == 0){
         	int move = runAI();
         	board = board.makeMove(move);
+        	return true;
         }
         // TODO: print error message / move suggestions here
         // Map human friendly field number to count-by-zero
