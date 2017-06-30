@@ -22,7 +22,6 @@ public class AI<Move> {
 		int maxDepth = beginningDepth + depths;
 		for(int i = beginningDepth; i < maxDepth; i++){
 			alphaBeta(b, Integer.MIN_VALUE, Integer.MAX_VALUE, i);
-			System.out.println(bestMoves);
 		}
 		return bestMoves.get(beginningDepth);
 	}

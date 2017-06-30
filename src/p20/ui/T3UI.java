@@ -1,5 +1,6 @@
 package p20.ui;
 
+import p20.AI;
 import p20.ImmutableBoard;
 import p20.T3Board;
 import p20.persistence.T3PersistenceManager;
@@ -56,4 +57,9 @@ public class T3UI extends BaseUI<Integer> {
         }
         return false;
     }
+
+	@Override
+	protected Integer runAI() {
+		return new AI<Integer>().getBestMove(board, 8, 100);
+	}
 }
