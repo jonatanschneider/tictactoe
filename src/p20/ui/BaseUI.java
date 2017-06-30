@@ -1,8 +1,11 @@
 package p20.ui;
 
+import p20.AI;
 import p20.ImmutableBoard;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class provides a skeletal implementation of an console based user interface
@@ -14,14 +17,57 @@ public abstract class BaseUI<T> {
      */
     protected ImmutableBoard<T> board;
 
+    /**
+     * Instance of the {@Link AI} class offering artificial intelligence functionality
+     */
+    private AI ai;
+
+    /**
+     * Flag indicating if the game is running
+     */
+    private boolean isRunning;
+
+    /**
+     * Instance of the {@Link Scanner} class used for console interaction
+     */
+    private Scanner scanner;
+
     public BaseUI() {
         board = getNewBoard();
+        ai = new AI();
+        scanner = new Scanner(System.in);
     }
 
     /**
      * Runs the game
      */
     public void run() {
+        this.isRunning = true;
+        while(isRunning) {
+            if(board.isWin()) {
+                // TODO: add win action
+                System.out.println("Win");
+                break;
+            }
+            if(board.isDraw()) {
+                // TODO: add draw action
+                System.out.println("Draw");
+            }
+            if(board.isBeginnersTurn()) {
+                printInputInstructions();
+                processInput(scanner.next());
+            } else {
+                // TODO: run AI, when available
+                // TMP: make first possible move
+                List<T> moves = board.moves();
+                if(!moves.isEmpty()) {
+                    board = board.makeMove(moves.get(0));
+                }
+            }
+        }
+    }
+
+    private void processInput(String input) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -44,6 +90,10 @@ public abstract class BaseUI<T> {
      */
     private void startNew() {
         board = getNewBoard();
+    }
+
+    private void exit() {
+        isRunning = false;
     }
 
     /**
