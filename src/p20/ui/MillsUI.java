@@ -20,22 +20,34 @@ public class MillsUI extends BaseUI<Move> {
 
     @Override
     protected void help() {
-    	//TODO: correct string
-        String millsHelp = "Spielen Sie Tic-Tac-Toe gegen den Computer. Die Positionen des Spielfelds sind von 1-24 nummeriert:\n" +
+        String millsHelp = "Spielen Sie Mühle gegen den Computer. Die Positionen des Spielfelds sind von 1-24 nummeriert:\n" +
                 "\n" +
-                "%1$1s-----%2$1s-----%3$1s\n" +
-                "| %9$1s---%10$1s---%11$1s |\n" +
-                "| | %17$1s-%18$1s-%19$1s | |\n" +
-                "%8$1s-%16$1s-%24$1s   %20$1s-%12$1s-%4$1s\n" +
-                "| | %23$1s-%22$1s-%21$1s | |\n" +
-                "| %15$1s---%14$1s---%13$1s |\n" +
-                "%7$1s-----%6$1s-----%5$1s" + 
-                "\n" +
-                "Es wird abwechselnd gezogen. Gewonnen hat, wer zuerst drei Spielsteine (entweder X oder O) in Reihe anordnet." +
+                "01-------02------03\n" +
+                "|  09----10---11  |\n" +
+                "|  |  17-18-19 |  |\n" +
+                "08-16-24    20-12-04\n" +
+                "|  |  23-22-21 |  |\n" +
+                "|  15----14----13 |\n" + 
+                "07-------06------05\n" +
                 "\n\n" +
-                "1-9\t\t\tPosition des Feldes, das man besetzten möchte\n" +
+                "Einen Zug können Sie auf die folgenden Art und Weisen machen:\n" +
+                "[Ziehe zu Position] oder\n" +
+                "[Ziehe zu Position]-[Position des zu entfernenden Steins] oder\n" +
+                "[Ziehe zu Position]-[Von Position]-[Position des zu entfernenden Steins]\n" + 
+                "\n\n" +
+                "1-24\t\t\tPosition des Feldes, das man besetzten möchte\n" +
                 "0\t\t\tDer Computer macht für Sie einen Zug\n" +
-                getBaseHelp();
+                getBaseHelp() + "\n\n" +
+                
+		        "Es wird abwechselnd gezogen. Verloren hat, wer nur noch zwei eigene Spielsteine hat.\n" +
+		        "Eine Mühle schließen Sie indem sie drei ihrer Steine in Reihe bringen (horizontal oder vertikal).\n" + 
+		        "Das Spiel beginnt mit dem abwechselnden Setzen von jeweils 9 Steinen. Sobald jeder Spieler 9x \n" +
+		        "am Zug war darf jeder Spieler in seinem Zug einen Stein von sich auf ein freies Nachbarfeld bewegen.\n" +
+		        "Falls Sie in ihrem Zug eine Mühle schließen dürfen Sie einen Stein des Gegners entfernen, " +
+		        "welcher nicht in einer Mühle ist,\nes sei denn alle seine Steine sind in einer Mühle, dann dürfen Sie auch " +
+		        "einen davon auswählen.\n" +
+		        "Sobald ein Spieler nur noch drei eigene Steine auf dem Feld hat, darf er mit seinen Steinen zu jeder Position springen\n";
+        System.out.println(millsHelp);
     }
 
     @Override
