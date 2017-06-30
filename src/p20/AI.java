@@ -131,4 +131,9 @@ public class AI<Move> {
 		}
 		return b.moves().get(indexOfMaxValue);
 	}
+	
+	public Move monteCarlo(ImmutableBoard<Move> b, int depth){
+		this.monteCarloDepth = depth;
+		return monteCarlo(b);
+	}
 }
