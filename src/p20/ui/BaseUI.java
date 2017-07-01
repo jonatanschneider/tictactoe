@@ -71,7 +71,7 @@ public abstract class BaseUI<T> {
             }
             if(board.isBeginnersTurn()) {
                 printInputInstructions();
-                processInput(scanner.next());
+                processInput(scanner.nextLine());
             } else {
             	T move = runAI();        
             	board = board.makeMove(move);

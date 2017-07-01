@@ -52,7 +52,8 @@ public class T3UI extends BaseUI<Integer> {
     protected boolean move(String input) {
         int field;
         try {
-            field = Integer.parseInt(input);
+        	// make sure only the first character of the input gets checked
+            field = Integer.parseInt(input.trim().substring(0, 1));
         } catch (NumberFormatException e) {
             return false;
         }
