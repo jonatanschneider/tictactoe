@@ -73,14 +73,14 @@ public class MillsUI extends BaseUI<Move> {
     	List<String> matches = new ArrayList<>();
     	while(matcher.find()) matches.add(matcher.group());
    
-    	int firstArg = -1;
-    	int secondArg = -1;
-    	int thirdArg = -1;
+    	int firstArg = 0;
+    	int secondArg = 0;
+    	int thirdArg = 0;
     	if(matches.size() > 0){
     		try {
                 firstArg = Integer.parseInt(matches.get(0));
-                secondArg = (matches.size() > 1) ? Integer.parseInt(matches.get(1)) : -1;
-                thirdArg = (matches.size() > 2) ? Integer.parseInt(matches.get(2)) : -1;
+                secondArg = (matches.size() > 1) ? Integer.parseInt(matches.get(1)) : 0;
+                thirdArg = (matches.size() > 2) ? Integer.parseInt(matches.get(2)) : 0;
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -91,23 +91,26 @@ public class MillsUI extends BaseUI<Move> {
         	return true;
         }
         
-        // TODO: print error message / move suggestions here
         // Map human friendly field number to count-by-zero
-        //the second argument represents remove while game is in first phase
+        // the second argument represents remove while game is in first phase
         Move move;
         if(board.getHistory().size() < 19) move = new Move(firstArg -1, -1, secondArg - 1);
         else move = new Move(firstArg -1, secondArg -1, thirdArg -1);
         
-        if(board.moves().contains(move)) {
-            board = board.makeMove(move);
-            return true;
-        }
-        return false;
+		if (board.moves().contains(move)) {
+			board = board.makeMove(move);
+			return true;
+		} else {
+			System.out.println("Dieser Zug ist nicht möglich!");
+			return false;
+		}
     }
 
 	@Override
 	protected Move runAI() {
+		//using monteCarlo search only for performance
 		return new AI<Move>().monteCarlo(board, 10);
+		//return new AI<Move>().getBestMove(board, 2, 10);
 	}
 
     @Override
