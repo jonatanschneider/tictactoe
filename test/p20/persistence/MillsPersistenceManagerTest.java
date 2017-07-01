@@ -51,6 +51,8 @@ public class MillsPersistenceManagerTest {
         assertTrue(saveMills(board, SAVE_PATH));
     }
 
+    // TODO: add test case for loading a not existing board
+
     @Test
     public void loadedT3BoardShouldBeEqualToSavedBoard() {
         saveMills(board, SAVE_PATH);
@@ -70,7 +72,7 @@ public class MillsPersistenceManagerTest {
     }
 
     private Mills loadMills(Path path) {
-        return persistenceManager.load(path);
+        return (Mills) persistenceManager.load(path);
     }
 
 }

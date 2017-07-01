@@ -1,18 +1,26 @@
 package p20.ui;
 
-import java.nio.file.Path;
+import p20.AI;
+import p20.ImmutableBoard;
+import p20.Mills;
+import p20.Move;
+import p20.persistence.BoardPersistenceManager;
+import p20.persistence.MillsPersistenceManager;
+
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import p20.AI;
-import p20.ImmutableBoard;
-import p20.Mills;
-import p20.Move;
-import p20.persistence.MillsPersistenceManager;
-
 public class MillsUI extends BaseUI<Move> {
+
+    public MillsUI() {
+        super();
+        // Overwrite the savegame path
+        savegamePath = Paths.get(System.getProperty("user.dir") + "/savegame.mills");
+    }
+
     @Override
     protected ImmutableBoard<Move> getNewBoard() {
         return new Mills();
@@ -48,18 +56,6 @@ public class MillsUI extends BaseUI<Move> {
 		        "einen davon auswählen.\n" +
 		        "Sobald ein Spieler nur noch drei eigene Steine auf dem Feld hat, darf er mit seinen Steinen zu jeder Position springen\n";
         System.out.println(millsHelp);
-    }
-
-    @Override
-    protected void save(Path path) {
-        MillsPersistenceManager persistenceManager = new MillsPersistenceManager();
-        persistenceManager.save((Mills) board, path);
-    }
-
-    @Override
-    protected void load(Path path) {
-        MillsPersistenceManager persistenceManager = new MillsPersistenceManager();
-        board = persistenceManager.load(path);
     }
 
     @Override
@@ -113,4 +109,9 @@ public class MillsUI extends BaseUI<Move> {
 	protected Move runAI() {
 		return new AI<Move>().monteCarlo(board, 10);
 	}
+
+    @Override
+    protected BoardPersistenceManager getPersistenceManager() {
+        return new MillsPersistenceManager();
+    }
 }

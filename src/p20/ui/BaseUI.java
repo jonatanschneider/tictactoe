@@ -2,9 +2,10 @@ package p20.ui;
 
 import p20.AI;
 import p20.ImmutableBoard;
+import p20.persistence.BoardPersistenceManager;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -23,6 +24,12 @@ public abstract class BaseUI<T> {
      * Instance of the {@Link AI} class offering artificial intelligence functionality
      */
     private AI ai;
+
+    /**
+     * Path to savegame
+     * Can be overwritten by implementing classes.
+     */
+    protected Path savegamePath = Paths.get(System.getProperty("user.dir") + "/savegame.board");
 
     /**
      * Flag indicating if the game is running
@@ -83,11 +90,9 @@ public abstract class BaseUI<T> {
         } else if(isMatch(input, "exit")) {
             exit();
         } else if(isMatch(input, "save")) {
-            // TODO: get path
-            //save();
+            save();
         } else if(isMatch(input, "load")) {
-            // TODO: get path
-            //load();
+            load();
         } else if(isMatch(input, "help", "?")) {
             help();
         } else if(move(input)) {
@@ -142,6 +147,30 @@ public abstract class BaseUI<T> {
     }
 
     /**
+     * Saves the current game
+     */
+    protected void save() {;
+        if(getPersistenceManager().save(board, savegamePath)) {
+            System.out.println("Das Spiel wurde gespeichert.");
+        } else {
+            System.out.println("Das Spiel konnte nicht gespeichert werden.");
+        }
+    }
+
+    /**
+     * Loads the game previously saved
+     */
+    protected void load() {
+        ImmutableBoard<T> loadedBoard = getPersistenceManager().load(savegamePath);
+        if(loadedBoard != null) {
+            board = loadedBoard;
+            System.out.println("Das Spiel wurde geladen.");
+        } else {
+            System.out.println("Das Spiel konnte nicht geladen werden.");
+        }
+    }
+
+    /**
      * Get a string describing the commands working independently from the specific game.
      * Can be used in the game-specific help.
      * @return help text describing generic ui commands
@@ -172,18 +201,6 @@ public abstract class BaseUI<T> {
     protected abstract void help();
 
     /**
-     * Saves the current game to the specified path
-     * @param path
-     */
-    protected abstract void save(Path path);
-
-    /**
-     * Loads the game from the specified path
-     * @param path
-     */
-    protected abstract void load(Path path);
-
-    /**
      * Prints the instructions preceding the user's input
      */
     protected abstract void printInputInstructions();
@@ -201,5 +218,11 @@ public abstract class BaseUI<T> {
      * @return move that the ai calculated
      */
     protected abstract T runAI();
+
+    /**
+     * Gets an instance of the PersistenceManager being able to persist and load the played game.
+     * @return {@link BoardPersistenceManager} instance of the persistence manager for the played game
+     */
+    protected abstract BoardPersistenceManager getPersistenceManager();
 
 }
