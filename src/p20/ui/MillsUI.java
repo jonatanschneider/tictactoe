@@ -61,7 +61,6 @@ public class MillsUI extends BaseUI<Move> {
     @Override
     protected void printInputInstructions() {
         System.out.println(board.toString());
-        //TODO: Move instruction in help
         System.out.println("Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)");
         System.out.println("[0: Computer zieht, ?: Hilfe]:");
     }
