@@ -37,6 +37,11 @@ public abstract class BaseUI<T> {
     private boolean isRunning;
 
     /**
+     * Flag indicating if the game is over (win / draw)
+     */
+    private boolean isGameOver;
+
+    /**
      * Instance of the {@Link Scanner} class used for console interaction
      */
     private Scanner scanner;
@@ -53,15 +58,16 @@ public abstract class BaseUI<T> {
     public void run() {
         this.isRunning = true;
         while(isRunning) {
-            if(board.isWin()) {
-                // TODO: add win action
-                System.out.println("Win");
-                break;
+            if(board.isWin() && !isGameOver) {
+                win();
             }
-            if(board.isDraw()) {
-                // TODO: add draw action
-                System.out.println("Draw");
-                break;
+            if(board.isDraw() && !isGameOver) {
+                draw();
+            }
+            if(isGameOver) {
+                printGameOverInstructions();
+                processInput(scanner.next());
+                continue;
             }
             if(board.isBeginnersTurn()) {
                 printInputInstructions();
@@ -95,7 +101,7 @@ public abstract class BaseUI<T> {
             load();
         } else if(isMatch(input, "help", "?")) {
             help();
-        } else if(move(input)) {
+        } else if(!isGameOver && move(input)) {
             // Empty, Action is in if's head so it effects the execution of the else
             // branch indicating that there was no action matching the user's input
         } else {
@@ -133,6 +139,7 @@ public abstract class BaseUI<T> {
      */
     private void undo() {
         board = board.undoMove();
+        isGameOver = false;
     }
 
     /**
@@ -140,10 +147,26 @@ public abstract class BaseUI<T> {
      */
     private void startNew() {
         board = getNewBoard();
+        isGameOver = false;
     }
 
     private void exit() {
         isRunning = false;
+    }
+
+    private void draw() {
+        System.out.println("Das Spiel endet unentschieden.");
+        isGameOver = true;
+    }
+
+    private void win() {
+        System.out.println(board.isBeginnersTurn() ? "Ich habe gewonnen." : "Du hast gewonnen.");
+        isGameOver = true;
+    }
+
+    private void printGameOverInstructions() {
+        System.out.println("\nGib “new” für eine neues Spiel ein!\n" +
+                "[?: Hilfe]:");
     }
 
     /**
@@ -164,6 +187,7 @@ public abstract class BaseUI<T> {
         ImmutableBoard<T> loadedBoard = getPersistenceManager().load(savegamePath);
         if(loadedBoard != null) {
             board = loadedBoard;
+            isGameOver = false;
             System.out.println("Das Spiel wurde geladen.");
         } else {
             System.out.println("Das Spiel konnte nicht geladen werden.");
