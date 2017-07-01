@@ -6,6 +6,7 @@ import p20.T3Board;
 import p20.persistence.T3PersistenceManager;
 
 import java.nio.file.Path;
+import java.util.stream.Collectors;
 
 /**
  * Created by David Donges on 29.06.2017.
@@ -59,18 +60,18 @@ public class T3UI extends BaseUI<Integer> {
         } catch (NumberFormatException e) {
             return false;
         }
-        if(field == 0){
-        	int move = runAI();
-        	board = board.makeMove(move);
-        	return true;
+        if (field == 0) {
+            int move = runAI();
+            board = board.makeMove(move);
         }
-        // TODO: print error message / move suggestions here
         // Map human friendly field number to count-by-zero
-        if(board.moves().contains(field - 1)) {
+        if (board.moves().contains(field - 1)) {
             board = board.makeMove(field - 1);
-            return true;
+        } else {
+            System.out.println("\nDas Spielfeld ist besetzt. Frei sind die Felder " +
+                    board.moves().stream().map(i -> (++i).toString()).collect(Collectors.joining(", ")));
         }
-        return false;
+        return true;
     }
 
 	@Override

@@ -192,7 +192,7 @@ public abstract class BaseUI<T> {
      * Tries to make a move based on the user's input.
      *
      * @param input user's input that shall be evaluated to a move
-     * @return {@code true} when the attempted move succeeded
+     * @return {@code true} when the input has been handled, {@code false} on illegal inputs
      */
     protected abstract boolean move(String input);
     
