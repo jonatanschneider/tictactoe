@@ -54,6 +54,7 @@ public abstract class BaseUI<T> {
             if(board.isDraw()) {
                 // TODO: add draw action
                 System.out.println("Draw");
+                break;
             }
             if(board.isBeginnersTurn()) {
                 printInputInstructions();
