@@ -138,7 +138,9 @@ public abstract class BaseUI<T> {
      * Undoes the last move
      */
     private void undo() {
-        board = board.undoMove();
+        // Undo two moves so the ai's and the user's last moves are undone.
+        // Undoing one move wouldn't result in any change as the ai would redo its move immediately.
+        board = board.undoMove().undoMove();
         isGameOver = false;
     }
 
