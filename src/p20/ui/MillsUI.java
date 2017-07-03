@@ -71,7 +71,7 @@ public class MillsUI extends BaseUI<Move> {
     	Matcher matcher = p.matcher(input);
     	List<String> matches = new ArrayList<>();
     	while(matcher.find()) matches.add(matcher.group());
-   
+    	if(matches.isEmpty()) return false;
     	int firstArg = 0;
     	int secondArg = 0;
     	int thirdArg = 0;
