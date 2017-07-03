@@ -143,7 +143,7 @@ Hier ca. 200 Zeilen des Konsolen-Dialogs reinkopieren.
  
 * So sieht der Dateiinhalt eines gespeicherten Mühle-Spiels von unserem Programm aus:
 ```
-Hier den Dateiinhalt reinkopieren!
+0,8,1,2,4,16,5,23,21,3,18,22-4,20,4-5,7,14,9,6,7-15,3-11,18-17-11,4-5,0-7,2-3
 ```
 
 ## Bonuspunkte (15P)

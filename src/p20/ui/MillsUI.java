@@ -62,6 +62,7 @@ public class MillsUI extends BaseUI<Move> {
     protected void printInputInstructions() {
         System.out.println(board.toString());
         System.out.println("Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)");
+        board.moves().stream().forEach(System.out::println);
         System.out.println("[0: Computer zieht, ?: Hilfe]:");
     }
 
@@ -87,13 +88,14 @@ public class MillsUI extends BaseUI<Move> {
         if(firstArg == 0){
         	Move m = runAI();
         	board = board.makeMove(m);
+        	System.out.println(aiOutput(m));
         	return true;
         }
         
         // Map human friendly field number to count-by-zero
         // the second argument represents remove while game is in first phase
         Move move;
-        if(board.getHistory().size() < 19) move = new Move(firstArg -1, -1, secondArg - 1);
+        if(board.getHistory().size() < 18) move = new Move(firstArg -1, -1, secondArg - 1);
         else move = new Move(firstArg -1, secondArg -1, thirdArg -1);
         
 		if (board.moves().contains(move)) {
@@ -108,8 +110,23 @@ public class MillsUI extends BaseUI<Move> {
 	@Override
 	protected Move runAI() {
 		//using monteCarlo search only for performance
-		return new AI<Move>().monteCarlo(board, 10);
+		Move m = new AI<Move>().monteCarlo(board, 10);
+		System.out.println(aiOutput(m));
+		return m;
 		//return new AI<Move>().getBestMove(board, 2, 10);
+	}
+	
+	private String aiOutput(Move m){
+		String s = "Ich denke nach ... und setze auf " + m.getTo();
+    	if(m.getFrom() != -1 && m.getRemove() != -1)
+    		s += " von " +m.getFrom() + " und entferne " + m.getRemove();
+    	else if(m.getFrom() == -1 && m.getRemove() != -1)
+    		s += " und entferne " + m.getRemove();
+    	else if(m.getFrom() != -1) 
+    		s+= " von " + m.getFrom();
+    	s += ".";
+		s += "\n";
+		return s;
 	}
 
     @Override
