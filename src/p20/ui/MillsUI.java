@@ -62,7 +62,6 @@ public class MillsUI extends BaseUI<Move> {
     protected void printInputInstructions() {
         System.out.println(board.toString());
         System.out.println("Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)");
-        board.moves().stream().forEach(System.out::println);
         System.out.println("[0: Computer zieht, ?: Hilfe]:");
     }
 
