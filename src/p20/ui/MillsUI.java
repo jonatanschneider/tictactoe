@@ -101,7 +101,7 @@ public class MillsUI extends BaseUI<Move> {
 			return true;
 		} else {
 			System.out.println("Dieser Zug ist nicht möglich!");
-			return false;
+			return true;
 		}
     }
 
