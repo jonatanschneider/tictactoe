@@ -1,9 +1,9 @@
 package p20;
 
 public class Move {
-	public int to;
-	public int from;
-	public int remove;
+	private int to;
+	private int from;
+	private int remove;
 	
 	public Move(int to, int from, int remove){
 		this.to = to;

@@ -87,7 +87,7 @@ public class Mills extends Board<Move>{
 		for(Move move : movesWithoutRemove){
 			if(closesMill(move)){
 				for(Integer stone : removableStones){
-					moves.add(new Move(move.to, move.from, stone));
+					moves.add(new Move(move.getTo(), move.getFrom(), stone));
 				}
 			}else moves.add(move);
 		}
@@ -166,7 +166,7 @@ public class Mills extends Board<Move>{
 			int sum = (isBeginnersTurn() ? 1 : -1);
 			for(int j = 0; j < mills[move.getTo()][i].length; j++){
 				//make sure a stone which gets moved does not raise the sum
-				if(move.from == -1 || move.from != mills[move.getTo()][i][j]){ 
+				if(move.getFrom() == -1 || move.getFrom() != mills[move.getTo()][i][j]){ 
 					sum += board[mills[move.getTo()][i][j]];
 				}
 				

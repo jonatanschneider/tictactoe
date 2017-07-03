@@ -67,6 +67,7 @@ Unser Code zur Berechnung eines T3- bzw. eines Mühle-Zugs ist in der Tat identi
 Beide Spiele rufen die Selbe Klasse `AI.java` auf, der einzige Unterschied besteht in der Parametrisierung: TicTacToe nutzt einen Integer, wohingegen Mühle eine Klasse `Move` nutzt in der die drei Zuganteile gespeichert werden.
 
 Beide Implementierungen nutzen für die folgenden Punkte den gleichen Code und
+
 - [X] führen eine iterative Tiefensuche durch (2P)
 - [X] und zwar als Alpha-Beta-Suche (2P),
 - [X] eine Transpositionstabelle beschleunigt die Suche (2P)
@@ -74,6 +75,7 @@ Beide Implementierungen nutzen für die folgenden Punkte den gleichen Code und
 - [(X)] die bis dahin beste gefundene Zugfolge wird mit jeder Iteration aktualisiert und kann bei Bedarf ausgegeben werden (2P)
 
 Die Implementierung für die Anforderungen finden sich für
+
 - die Tiefensuche (je nachdem, was Sie implementiert haben):
   - Minimax/Negamax: _Linkangabe_ (Zeilen 29-87)
   - Alpha-Beta:  _Linkangabe_ (Zeilen 29-87)
@@ -136,7 +138,7 @@ Hier ca. 200 Zeilen des Konsolen-Dialogs reinkopieren.
 
 * So sieht der Dateiinhalt eines gespeicherten T3-Spiels von unserem Programm aus:
 ```
-Hier den Dateiinhalt reinkopieren!
+0,4,7,1,2,3,5,8,6,f
 ```
  
 * So sieht der Dateiinhalt eines gespeicherten Mühle-Spiels von unserem Programm aus:
