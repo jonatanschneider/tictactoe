@@ -120,7 +120,7 @@ public abstract class BaseUI<T> {
     private boolean isMatch(String input, String... commands) {
         for(String command : commands) {
             // Check if the input string matches the beginning of the command
-            if(command.indexOf(input) == 0) {
+            if(!input.isEmpty() && command.indexOf(input) == 0) {
                 return true;
             }
         }
