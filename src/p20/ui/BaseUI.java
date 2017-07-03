@@ -66,7 +66,7 @@ public abstract class BaseUI<T> {
             }
             if(isGameOver) {
                 printGameOverInstructions();
-                processInput(scanner.next());
+                processInput(scanner.nextLine());
                 continue;
             }
             if(board.isBeginnersTurn()) {
