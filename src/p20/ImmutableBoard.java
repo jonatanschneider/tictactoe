@@ -2,17 +2,17 @@ package p20;
 
 import java.util.List;
 
-@SuppressWarnings("unchecked")
+//@SuppressWarnings("unchecked")
 public interface ImmutableBoard<Move> {
-	ImmutableBoard makeMove(Move move);
-	default ImmutableBoard makeMove(Move... moves) {
-		ImmutableBoard b = this;
+	ImmutableBoard<Move> makeMove(Move move);
+	default ImmutableBoard<Move> makeMove(Move... moves) {
+		ImmutableBoard<Move> b = this;
 		for(Move move : moves) b = b.makeMove(move);
 		return b;
 	}
-	ImmutableBoard undoMove();
+	ImmutableBoard<Move> undoMove();
 	List<Move> moves();
-	List<Move> getHistory();
+	List<Move> getHistory(); // last move in list = recent move
 
 	boolean isWin();
 	boolean isDraw();
@@ -20,7 +20,8 @@ public interface ImmutableBoard<Move> {
 		return getHistory().size() % 2 == 0;
 	}
 
-	ImmutableBoard flip();
+	ImmutableBoard<Move> flip();
 	boolean isFlipped();
 	String toString();
 }
+

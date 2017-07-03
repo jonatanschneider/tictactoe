@@ -9,14 +9,13 @@ import java.nio.file.Path;
 /**
  * Created by David Donges on 26.06.2017.
  */
-public abstract class BoardPersistenceManager<T extends ImmutableBoard> {
-    public T load(Path path) {
-        String savegame = "";
+public abstract class BoardPersistenceManager<T> {
+    public ImmutableBoard<T> load(Path path) {
+        String savegame;
         try {
             savegame = new String(Files.readAllBytes(path));
         } catch(IOException e) {
-            // TODO: handle exception properly
-            e.printStackTrace();
+            return null;
         }
         // Flag passed to implementing class indicating whether the board is flipped
         boolean isFlipped = false;
@@ -33,7 +32,7 @@ public abstract class BoardPersistenceManager<T extends ImmutableBoard> {
         return stringToBoard(savegame, isFlipped);
     }
 
-    public boolean save(T board, Path path) {
+    public boolean save(ImmutableBoard<T> board, Path path) {
         String savegame = boardToString(board);
         // Add flipped flag
         if (board.isFlipped()) {
@@ -49,7 +48,7 @@ public abstract class BoardPersistenceManager<T extends ImmutableBoard> {
         return true;
     }
 
-    protected abstract String boardToString(T board);
+    protected abstract String boardToString(ImmutableBoard<T> board);
 
-    protected abstract T stringToBoard(String savegame, boolean isFlipped);
+    protected abstract ImmutableBoard<T> stringToBoard(String savegame, boolean isFlipped);
 }

@@ -1,9 +1,9 @@
 package p20;
 
 public class Move {
-	public int to;
-	public int from;
-	public int remove;
+	private int to;
+	private int from;
+	private int remove;
 	
 	public Move(int to, int from, int remove){
 		this.to = to;
@@ -30,8 +30,7 @@ public class Move {
 	public int getRemove() {
 		return remove;
 	}
-
-
+	
 	@Override
 	public String toString() {
 		return "Move{" +
@@ -52,5 +51,19 @@ public class Move {
 			return to + "-" + remove;
 		}
 		return "" + to;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Move){
+			Move other = (Move) o;
+			if(other.to == this.to && other.from == this.from && other.remove == this.remove) return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 }

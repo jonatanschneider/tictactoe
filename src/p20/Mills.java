@@ -64,6 +64,7 @@ public class Mills extends Board<Move>{
 			List<Integer> playerStones = IntStream.range(0, board.length)
 					.filter(i -> board[i] == turn)
 					.boxed().collect(Collectors.toList());
+			if(playerStones.size() < 3) return new ArrayList<>();
 			//second phase
 			if(playerStones.size() > 3){
 				//moving to direct neighbours only
@@ -84,9 +85,9 @@ public class Mills extends Board<Move>{
 		//all phases: check for mill closing
 		List<Integer> removableStones = removableStones();
 		for(Move move : movesWithoutRemove){
-			if(closesMill(move.to)){
+			if(closesMill(move)){
 				for(Integer stone : removableStones){
-					moves.add(new Move(move.to, move.from, stone));
+					moves.add(new Move(move.getTo(), move.getFrom(), stone));
 				}
 			}else moves.add(move);
 		}
@@ -140,21 +141,35 @@ public class Mills extends Board<Move>{
 				.boxed().collect(Collectors.toList());
 		if(opponentStones.size() == 3) return opponentStones;
 		List<Integer> removableStones = opponentStones.stream()
-				.filter(stone -> closesMill(stone) == false)
+				.filter(stone -> inMill(stone) == false)
 				.collect(Collectors.toList());
 		return (removableStones.size() > 0 ? removableStones : opponentStones);
 	}
 	
+	private boolean inMill(int stone){
+		for(int i = 0; i < mills[stone].length; i++){
+			int sum = board[stone];
+			sum += board[mills[stone][i][0]];
+			sum += board[mills[stone][i][1]];
+			if(Math.abs(sum) == 3) return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Checks whether a stone closes a mill or not
 	 * @param stone to be set
 	 * @return true if the stone closes a mill
 	 */
-	private boolean closesMill(int stone){
-		for(int i = 0; i < mills[stone].length; i++){
+	private boolean closesMill(Move move){
+		for(int i = 0; i < mills[move.getTo()].length; i++){
 			int sum = (isBeginnersTurn() ? 1 : -1);
-			for(int j = 0; j < mills[stone][i].length; j++){
-				sum += board[mills[stone][i][j]];
+			for(int j = 0; j < mills[move.getTo()][i].length; j++){
+				//make sure a stone which gets moved does not raise the sum
+				if(move.getFrom() == -1 || move.getFrom() != mills[move.getTo()][i][j]){ 
+					sum += board[mills[move.getTo()][i][j]];
+				}
+				
 			}
 			if(Math.abs(sum) == 3) return true;
 		}
