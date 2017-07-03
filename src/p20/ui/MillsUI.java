@@ -116,13 +116,13 @@ public class MillsUI extends BaseUI<Move> {
 	}
 	
 	private String aiOutput(Move m){
-		String s = "Ich denke nach ... und setze auf " + m.getTo()+1;
+		String s = "Ich denke nach ... und setze auf " + (m.getTo()+1);
     	if(m.getFrom() != -1 && m.getRemove() != -1)
-    		s += " von " +m.getFrom()+1 + " und entferne " + m.getRemove()+1;
+    		s += " von " +(m.getFrom()+1) + " und entferne " + (m.getRemove()+1);
     	else if(m.getFrom() == -1 && m.getRemove() != -1)
-    		s += " und entferne " + m.getRemove()+1;
+    		s += " und entferne " + (m.getRemove()+1);
     	else if(m.getFrom() != -1) 
-    		s+= " von " + m.getFrom()+1;
+    		s+= " von " + (m.getFrom()+1);
     	s += ".";
 		s += "\n";
 		return s;
