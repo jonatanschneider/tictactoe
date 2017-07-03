@@ -53,7 +53,7 @@ public class T3UI extends BaseUI<Integer> {
         int field;
         try {
         	// make sure only the first character of the input gets checked
-            field = Integer.parseInt(input.trim().substring(0, 1));
+            field = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             return false;
         }
