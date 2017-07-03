@@ -1,5 +1,6 @@
 package p20.persistence;
 
+import p20.ImmutableBoard;
 import p20.Mills;
 import p20.Move;
 import p20.T3Board;
@@ -10,16 +11,16 @@ import java.util.stream.Collectors;
 /**
  * Created by David Donges on 26.06.2017.
  */
-public class MillsPersistenceManager extends BoardPersistenceManager<Mills> {
+public class MillsPersistenceManager extends BoardPersistenceManager<Move> {
     private int moveCounter = 0;
     @Override
-    protected String boardToString(Mills board) {
+    protected String boardToString(ImmutableBoard<Move> board) {
         // Map board's history (Move objects) to strings and join them
         return board.getHistory().stream().map(i -> i.toSaveString()).collect(Collectors.joining(","));
     }
 
     @Override
-    protected Mills stringToBoard(String savegame, boolean isFlipped) {
+    protected ImmutableBoard<Move> stringToBoard(String savegame, boolean isFlipped) {
         Mills board = new Mills();
         if(isFlipped) {
             board.flip();

@@ -28,6 +28,8 @@ public class T3PersistenceManagerTest {
         assertTrue(saveT3(board, SAVE_PATH));
     }
 
+    // TODO: add test case for loading a not existing board
+    
     @Test
     public void loadedT3BoardShouldBeEqualToSavedBoard() {
         saveT3(board, SAVE_PATH);
@@ -47,7 +49,7 @@ public class T3PersistenceManagerTest {
     }
 
     private T3Board loadT3(Path path) {
-        return persistenceManager.load(path);
+        return (T3Board) persistenceManager.load(path);
     }
 
 }
