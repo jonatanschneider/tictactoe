@@ -106,7 +106,8 @@ public abstract class BaseUI<T> {
             // branch indicating that there was no action matching the user's input
         } else {
             // Output default message indicating that the input could not be process
-            System.out.println("Das habe ich leider nicht verstanden.");
+            System.out.println("\nDas habe ich leider nicht verstanden.\n");
+            System.out.println(getBaseHelp());
         }
     }
 
