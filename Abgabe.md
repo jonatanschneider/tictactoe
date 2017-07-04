@@ -7,7 +7,7 @@ Wir haben das Praktikum bei
 * Herrn Herzberg besucht
 * im 2. Block
 
-Das Team-Repository auf GitLab: https://git.thm.de/jsnr08/pis-p20
+Das Team-Repository auf GitLab: [https://git.thm.de/jsnr08/pis-p20](https://git.thm.de/jsnr08/pis-p20)
 
 Die Team-Mitglieder sind:
 
@@ -18,8 +18,8 @@ Die Beitragsanteile in Prozent verteilen sich wie folgt in unserem Team; die Sum
 
 | Nachname | Anteil |
 | -------- | -------- |
-| 1.Schneider | 50%   |
-| 2.Donges    | 50%   |
+| 1. Schneider | 50%   |
+| 2. Donges    | 50%   |
 
 ## Basispunkte (20P)
 
@@ -76,7 +76,7 @@ Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
 
 Unser Code zur Berechnung eines T3- bzw. eines Mühle-Zugs ist in der Tat identisch. Das sieht man im Code daran, dass ...
 
-beide Spiele rufen die Selbe Klasse `AI.java` auf, der einzige Unterschied besteht in der Parametrisierung: TicTacToe nutzt einen Integer, wohingegen Mühle eine Klasse `Move` nutzt in der die drei Zuganteile gespeichert werden.
+beide Spiele zur Berechnung der Züge eine Instanz der gleichen Klasse `AI.java` verwenden. Der einzige Unterschied besteht in der Parametrisierung der generischen Klasse: TicTacToe nutzt einen Integer, wohingegen Mühle eine Klasse `Move` nutzt, in der die drei Zuganteile gespeichert werden.
 
 Beide Implementierungen nutzen für die folgenden Punkte den gleichen Code und
 
@@ -161,7 +161,7 @@ OX.
 
 Gib gültigen Spielzug ein (1-9 + <ENTER>)
 [0: Computer zieht, ?: Hilfe]:
->>u
+>> u
 
 O..
 .X.
