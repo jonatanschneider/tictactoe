@@ -76,7 +76,7 @@ Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
 
 Unser Code zur Berechnung eines T3- bzw. eines Mühle-Zugs ist in der Tat identisch. Das sieht man im Code daran, dass ...
 
-beide Spiele rufen die Selbe Klasse `AI.java` auf, der einzige Unterschied besteht in der Parametrisierung: TicTacToe nutzt einen Integer, wohingegen Mühle eine Klasse `Move` nutzt in der die drei Zuganteile gespeichert werden.
+beide Spiele zur Berechnung der Züge eine Instanz der gleichen Klasse `AI.java` verwenden. Der einzige Unterschied besteht in der Parametrisierung der generischen Klasse: TicTacToe nutzt einen Integer, wohingegen Mühle eine Klasse `Move` nutzt, in der die drei Zuganteile gespeichert werden.
 
 Beide Implementierungen nutzen für die folgenden Punkte den gleichen Code und
 
