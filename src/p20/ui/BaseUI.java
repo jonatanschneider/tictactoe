@@ -158,6 +158,7 @@ public abstract class BaseUI<T> {
      * Sets the UI state to draw
      */
     private void draw() {
+        System.out.println(board.toString());
         System.out.println("Das Spiel endet unentschieden.");
         isGameOver = true;
     }
@@ -166,6 +167,7 @@ public abstract class BaseUI<T> {
      * Sets the UI state to win
      */
     private void win() {
+        System.out.println(board.toString());
         System.out.println(board.isBeginnersTurn() ? "Ich habe gewonnen." : "Du hast gewonnen.");
         isGameOver = true;
     }
