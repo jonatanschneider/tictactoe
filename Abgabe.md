@@ -30,6 +30,7 @@ Gleich zu Anfang möchten wir auf Folgendes hinweisen und aufmerksam machen: /
 ### Programme starten
 
 * Das T3-Spiel wird in der Konsole folgt gestartet:
+
 ```
 P20 - Projekt
 -------------
@@ -50,6 +51,7 @@ Gib gültigen Spielzug ein (1-9 + <ENTER>)
 ```
 
 * Das Mühle-Spiel wird in der Konsole wie folgt gestartet:
+
 ```
 P20 - Projekt
 -------------
@@ -154,7 +156,7 @@ Sie können für die Umsetzung eines der beiden folgenden Punkte 5 Bonuspunkte e
 - [ ] Die Implementierung der Transpositionstabelle für Mühle nutzt Symmetrien der "Spielmechanik" aus, um symmetrische Stellungen zu erkennen
 - [ ] Die Implementierung setzt Bitboards für Mühle um
 
-Die Realisation ist im Code zu finden unter: _Linkangabe_ (Zeile _von_-_bis_)
+Die Realisation ist im Code zu finden unter: /
 
 ### Immutabilität und Streams mit Lambdas (2x 5P)
 

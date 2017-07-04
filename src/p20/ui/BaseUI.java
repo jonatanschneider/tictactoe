@@ -173,7 +173,7 @@ public abstract class BaseUI<T> {
     }
 
     private void printGameOverInstructions() {
-        System.out.println("\nGib “new” für eine neues Spiel ein!\n" +
+        System.out.println("\nGib \"new\" für eine neues Spiel ein!\n" +
                 "[?: Hilfe]:");
     }
 

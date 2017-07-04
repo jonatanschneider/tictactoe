@@ -75,6 +75,7 @@ public class T3UI extends BaseUI<Integer> {
 
 	@Override
 	protected Integer runAI() {
+		//Integer move = new AI<Integer>().monteCarlo(board, 100);
 		Integer move = new AI<Integer>().getBestMove(board, 8, 100);
         System.out.println("\nIch denke nach ... und setze auf " + (move+1) + ".");
         return move;

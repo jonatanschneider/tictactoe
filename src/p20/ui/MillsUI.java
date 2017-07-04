@@ -87,7 +87,6 @@ public class MillsUI extends BaseUI<Move> {
         if(firstArg == 0){
         	Move m = runAI();
         	board = board.makeMove(m);
-        	System.out.println(aiOutput(m));
         	return true;
         }
         
