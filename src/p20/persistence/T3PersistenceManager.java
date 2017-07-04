@@ -22,10 +22,15 @@ public class T3PersistenceManager extends BoardPersistenceManager<Integer> {
         if(isFlipped) {
             board.flip();
         }
-        // Split the string and generate an Integer array containing the moves
-        Integer[] moves = Arrays.stream(savegame.split(","))
-                .mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
-        // Make the moves and return the T3Board
-        return (T3Board) board.makeMove(moves);
+
+        try {
+            // Split the string and generate an Integer array containing the moves
+            Integer[] moves = Arrays.stream(savegame.split(","))
+                    .mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
+            // Make the moves and return the T3Board
+            return board.makeMove(moves);
+        } catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 }

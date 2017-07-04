@@ -29,8 +29,12 @@ public class MillsPersistenceManager extends BoardPersistenceManager<Move> {
         // Split the string and generate an Integer array containing the moves
         Move[] moves = Arrays.stream(savegame.split(","))
                 .map(this::fromString).toArray(Move[]::new);
-        // Make the moves and return the MillsBoard
-        return (Mills) board.makeMove(moves);
+        try {
+            // Make the moves and return the MillsBoard
+            return board.makeMove(moves);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     private Move fromString(String move) {
