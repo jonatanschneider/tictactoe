@@ -26,13 +26,13 @@ public class MillsPersistenceManager extends BoardPersistenceManager<Move> {
             board.flip();
         }
         moveCounter = 0;
-        // Split the string and generate an Integer array containing the moves
-        Move[] moves = Arrays.stream(savegame.split(","))
-                .map(this::fromString).toArray(Move[]::new);
         try {
+            // Split the string and generate an Integer array containing the moves
+            Move[] moves = Arrays.stream(savegame.split(","))
+                    .map(this::fromString).toArray(Move[]::new);
             // Make the moves and return the MillsBoard
             return board.makeMove(moves);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return null;
         }
     }
