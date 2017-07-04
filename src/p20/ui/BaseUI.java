@@ -213,12 +213,12 @@ public abstract class BaseUI<T> {
     protected String getBaseHelp() {
         return "undo\t\tMacht den letzten Spielzug rückgängig\n" +
                 "flip\t\tTauscht Spielsteine: X gegen O und umgekehrt\n" +
-                "new\t\t\tBeginnt ein neues Spiel\n" +
+                "new\t\tBeginnt ein neues Spiel\n" +
                 "exit\t\tBeendet das Programm\n" +
                 "save\t\tSpeichert aktuelle Spielsituation\n" +
                 "load\t\tLädt letzte gespeicherte Spielsituation\n" +
                 "help\t\tZeigt diese Übersicht an\n" +
-                "?\t\t\tWie “help”\n" +
+                "?\t\tWie \"help\"\n" +
                 "\n" +
                 "Schließen Sie die Eingabe mit der <Eingabe>-Taste ab!\n" +
                 "Bei Befehlen genügt auch die Eingabe des ersten Buchstabens.";

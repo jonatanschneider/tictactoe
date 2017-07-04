@@ -35,8 +35,8 @@ public class T3UI extends BaseUI<Integer> {
                 "\n" +
                 "Es wird abwechselnd gezogen. Gewonnen hat, wer zuerst drei Spielsteine (entweder X oder O) in Reihe anordnet." +
                 "\n\n" +
-                "1-9\t\t\tPosition des Feldes, das man besetzen möchte\n" +
-                "0\t\t\tDer Computer macht für Sie einen Zug\n" +
+                "1-9\t\tPosition des Feldes, das man besetzen möchte\n" +
+                "0\t\tDer Computer macht für Sie einen Zug\n" +
                 getBaseHelp();
         System.out.println(t3Help);
     }
