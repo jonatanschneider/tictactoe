@@ -27,7 +27,7 @@ public abstract class BoardPersistenceManager<T> {
         if(savegame.toLowerCase().indexOf("f") > -1) {
             isFlipped = true;
             // ... Cut off the flipped flag so the move generation stream works properly
-            savegame = savegame.substring(0, savegame.length() - 1);
+            savegame = savegame.substring(0, savegame.length() - 2);
         }
         return stringToBoard(savegame, isFlipped);
     }
@@ -36,7 +36,7 @@ public abstract class BoardPersistenceManager<T> {
         String savegame = boardToString(board);
         // Add flipped flag
         if (board.isFlipped()) {
-            savegame += savegame.isEmpty() ? "f" : ",f";
+            savegame += ",f";
         }
         // Add terminating line break according to specification
         savegame += "\n";
