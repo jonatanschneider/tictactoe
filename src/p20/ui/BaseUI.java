@@ -147,15 +147,24 @@ public abstract class BaseUI<T> {
         isGameOver = false;
     }
 
+    /**
+     * Exits the game
+     */
     private void exit() {
         isRunning = false;
     }
 
+    /**
+     * Sets the UI state to draw
+     */
     private void draw() {
         System.out.println("Das Spiel endet unentschieden.");
         isGameOver = true;
     }
 
+    /**
+     * Sets the UI state to win
+     */
     private void win() {
         System.out.println(board.isBeginnersTurn() ? "Ich habe gewonnen." : "Du hast gewonnen.");
         isGameOver = true;
