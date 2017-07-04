@@ -7,7 +7,7 @@ Wir haben das Praktikum bei
 * Herrn Herzberg besucht
 * im 2. Block
 
-Das Team-Repository auf GitLab: https://git.thm.de/jsnr08/pis-p20
+Das Team-Repository auf GitLab: [https://git.thm.de/jsnr08/pis-p20](https://git.thm.de/jsnr08/pis-p20)
 
 Die Team-Mitglieder sind:
 
@@ -18,8 +18,8 @@ Die Beitragsanteile in Prozent verteilen sich wie folgt in unserem Team; die Sum
 
 | Nachname | Anteil |
 | -------- | -------- |
-| 1.Schneider | 50%   |
-| 2.Donges    | 50%   |
+| 1. Schneider | 50%   |
+| 2. Donges    | 50%   |
 
 ## Basispunkte (20P)
 
@@ -161,7 +161,7 @@ OX.
 
 Gib gültigen Spielzug ein (1-9 + <ENTER>)
 [0: Computer zieht, ?: Hilfe]:
->>u
+>> u
 
 O..
 .X.
