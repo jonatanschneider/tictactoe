@@ -43,8 +43,8 @@ public class MillsUI extends BaseUI<Move> {
                 "[Ziehe zu Position]-[Position des zu entfernenden Steins] oder\n" +
                 "[Ziehe zu Position]-[Von Position]-[Position des zu entfernenden Steins]\n" + 
                 "\n\n" +
-                "1-24\t\t\tPosition des Feldes, das man besetzten möchte\n" +
-                "0\t\t\tDer Computer macht für Sie einen Zug\n" +
+                "1-24\t\tPosition des Feldes, das man besetzten möchte\n" +
+                "0\t\tDer Computer macht für Sie einen Zug\n" +
                 getBaseHelp() + "\n\n" +
                 
 		        "Es wird abwechselnd gezogen. Verloren hat, wer nur noch zwei eigene Spielsteine hat.\n" +

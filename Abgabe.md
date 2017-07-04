@@ -94,9 +94,7 @@ Die Implementierung für die Anforderungen finden sich für
 - die Transpositionstabelle: [AI.java](https://git.thm.de/jsnr08/pis-p20/blob/master/src/p20/AI.java)  (Zeilen 34-38)
 - die Monte-Carlo-Methode: [AI.java](https://git.thm.de/jsnr08/pis-p20/blob/master/src/p20/AI.java)  (Zeilen 118-132)
 
-Wir möchten folgende Anmerkungen zu unserem Code machen:
-
-_Ihr Text_
+Wir möchten folgende Anmerkungen zu unserem Code machen: /
 
 ### Implementierung der Spielbrett- und Zuglogik (2P)
 
@@ -117,22 +115,507 @@ Wir möchten folgende Anmerkungen zu unserem Code machen:
 Wir sind aus folgendem Grund abgewichen vom spezifizierten Dialogverhalten: /
 
 So sieht der Programmdialog mit dem T3-Spiel aus:
+
 ```
-Hier ca. 200 Zeilen des Konsolen-Dialogs reinkopieren.
+P20 - Projekt
+-------------
+Bitte wählen Sie aus den folgenden Optionen durch Eingabe der vorangestellten Zahl + <ENTER>.
+[1] TicTacToe starten
+[2] Mühle starten
+[3] Beenden
+>> 1
+
+...
+...
+...
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 5
+
+Ich denke nach ... und setze auf 8.
+
+...
+.X.
+.O.
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 9
+
+Ich denke nach ... und setze auf 1.
+
+O..
+.X.
+.OX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 2
+
+Ich denke nach ... und setze auf 4.
+
+OX.
+OX.
+.OX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>>u
+
+O..
+.X.
+.OX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 4
+
+Ich denke nach ... und setze auf 6.
+
+O..
+XXO
+.OX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> f
+
+X..
+OOX
+.XO
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 2
+
+Ich denke nach ... und setze auf 3.
+
+XOX
+OOX
+.XO
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> s
+Das Spiel wurde gespeichert.
+
+XOX
+OOX
+.XO
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 7
+
+XOX
+OOX
+OXO
+
+Das Spiel endet unentschieden.
+
+Gib "new" für eine neues Spiel ein!
+[?: Hilfe]:
+>> l
+Das Spiel wurde geladen.
+
+XOX
+OOX
+.XO
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 0
+
+Ich denke nach ... und setze auf 7.
+
+XOX
+OOX
+OXO
+
+Das Spiel endet unentschieden.
+
+Gib "new" für eine neues Spiel ein!
+[?: Hilfe]:
+>> ?
+Spielen Sie Tic-Tac-Toe gegen den Computer. Die Positionen des Spielfelds sind von 1-9 nummeriert:
+
+1 2 3
+4 5 6
+7 8 9
+
+Es wird abwechselnd gezogen. Gewonnen hat, wer zuerst drei Spielsteine (entweder X oder O) in Reihe anordnet.
+
+1-9             Position des Feldes, das man besetzen möchte
+0               Der Computer macht für Sie einen Zug
+undo            Macht den letzten Spielzug rückgängig
+flip            Tauscht Spielsteine: X gegen O und umgekehrt
+new             Beginnt ein neues Spiel
+exit            Beendet das Programm
+save            Speichert aktuelle Spielsituation
+load            Lädt letzte gespeicherte Spielsituation
+help            Zeigt diese Übersicht an
+?               Wie "help"
+
+Schließen Sie die Eingabe mit der <Eingabe>-Taste ab!
+Bei Befehlen genügt auch die Eingabe des ersten Buchstabens.
+
+Gib "new" für eine neues Spiel ein!
+[?: Hilfe]:
+>> u
+
+Ich denke nach ... und setze auf 3.
+
+XOX
+OOX
+.XO
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> u
+
+X..
+OOX
+.XO
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> u
+
+X..
+.O.
+.XO
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> flip
+
+O..
+.X.
+.OX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 2
+
+Ich denke nach ... und setze auf 4.
+
+OX.
+OX.
+.OX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 0
+
+Ich denke nach ... und setze auf 7.
+
+Ich denke nach ... und setze auf 3.
+
+OXO
+OX.
+XOX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> new
+
+...
+...
+...
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 4
+
+Ich denke nach ... und setze auf 5.
+
+...
+XO.
+...
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 2
+
+Ich denke nach ... und setze auf 1.
+
+OX.
+XO.
+...
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 9
+
+Ich denke nach ... und setze auf 3.
+
+OXO
+XO.
+..X
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 0
+
+Ich denke nach ... und setze auf 7.
+
+Ich denke nach ... und setze auf 8.
+
+OXO
+XO.
+XOX
+
+Gib gültigen Spielzug ein (1-9 + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 0
+
+Ich denke nach ... und setze auf 6.
+
+OXO
+XOX
+XOX
+
+Das Spiel endet unentschieden.
+
+Gib "new" für eine neues Spiel ein!
+[?: Hilfe]:
 ```
 
 So sieht der Programmdialog mit dem Mühle-Spiel aus:
+
 ```
-Hier ca. 200 Zeilen des Konsolen-Dialogs reinkopieren.
+P20 - Projekt
+-------------
+Bitte wählen Sie aus den folgenden Optionen durch Eingabe der vorangestellten Zahl + <ENTER>.
+[1] TicTacToe starten
+[2] Mühle starten
+[3] Beenden
+>> 2
+.-----.-----.
+| .---.---. |
+| | .-.-. | |
+.-.-.   .-.-.
+| | .-.-. | |
+| .---.---. |
+.-----.-----.
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 1
+Ich denke nach ... und setze auf 9.
+
+X-----.-----.
+| O---.---. |
+| | .-.-. | |
+.-.-.   .-.-.
+| | .-.-. | |
+| .---.---. |
+.-----.-----.
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 5
+Ich denke nach ... und setze auf 8.
+
+X-----.-----.
+| O---.---. |
+| | .-.-. | |
+O-.-.   .-.-.
+| | .-.-. | |
+| .---.---. |
+.-----.-----X
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 17
+Ich denke nach ... und setze auf 3.
+
+X-----.-----O
+| O---.---. |
+| | X-.-. | |
+O-.-.   .-.-.
+| | .-.-. | |
+| .---.---. |
+.-----.-----X
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 18
+Ich denke nach ... und setze auf 10.
+
+X-----.-----O
+| O---O---. |
+| | X-X-. | |
+O-.-.   .-.-.
+| | .-.-. | |
+| .---.---. |
+.-----.-----X
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 19-3
+Ich denke nach ... und setze auf 4.
+
+X-----.-----.
+| O---O---. |
+| | X-X-X | |
+O-.-.   .-.-O
+| | .-.-. | |
+| .---.---. |
+.-----.-----X
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 0
+Ich denke nach ... und setze auf 23.
+
+Ich denke nach ... und setze auf 20.
+
+X-----.-----.
+| O---O---. |
+| | X-X-X | |
+O-.-.   O-.-O
+| | X-.-. | |
+| .---.---. |
+.-----.-----X
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> f
+O-----.-----.
+| X---X---. |
+| | O-O-O | |
+X-.-.   X-.-X
+| | O-.-. | |
+| .---.---. |
+.-----.-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> s
+Das Spiel wurde gespeichert.
+O-----.-----.
+| X---X---. |
+| | O-O-O | |
+X-.-.   X-.-X
+| | O-.-. | |
+| .---.---. |
+.-----.-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 23
+Dieser Zug ist nicht möglich!
+O-----.-----.
+| X---X---. |
+| | O-O-O | |
+X-.-.   X-.-X
+| | O-.-. | |
+| .---.---. |
+.-----.-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 14
+Ich denke nach ... und setze auf 11 und entferne 14.
+
+O-----.-----.
+| X---X---X |
+| | O-O-O | |
+X-.-.   X-.-X
+| | O-.-. | |
+| .---.---. |
+.-----.-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> ?
+Spielen Sie Mühle gegen den Computer. Die Positionen des Spielfelds sind von 1-24 nummeriert:
+
+01-------02------03
+|  09----10---11  |
+|  |  17-18-19 |  |
+08-16-24    20-12-04
+|  |  23-22-21 |  |
+|  15----14----13 |
+07-------06------05
+
+
+Einen Zug können Sie auf die folgenden Art und Weisen machen:
+[Ziehe zu Position] oder
+[Ziehe zu Position]-[Position des zu entfernenden Steins] oder
+[Ziehe zu Position]-[Von Position]-[Position des zu entfernenden Steins]
+
+
+1-24            Position des Feldes, das man besetzten möchte
+0               Der Computer macht für Sie einen Zug
+undo            Macht den letzten Spielzug rückgängig
+flip            Tauscht Spielsteine: X gegen O und umgekehrt
+new             Beginnt ein neues Spiel
+exit            Beendet das Programm
+save            Speichert aktuelle Spielsituation
+load            Lädt letzte gespeicherte Spielsituation
+help            Zeigt diese Übersicht an
+?               Wie "help"
+
+Schließen Sie die Eingabe mit der <Eingabe>-Taste ab!
+Bei Befehlen genügt auch die Eingabe des ersten Buchstabens.
+
+Es wird abwechselnd gezogen. Verloren hat, wer nur noch zwei eigene Spielsteine hat.
+Eine Mühle schließen Sie indem sie drei ihrer Steine in Reihe bringen (horizontal oder vertikal).
+Das Spiel beginnt mit dem abwechselnden Setzen von jeweils 9 Steinen. Sobald jeder Spieler 9x
+am Zug war darf jeder Spieler in seinem Zug einen Stein von sich auf ein freies Nachbarfeld bewegen.
+Falls Sie in ihrem Zug eine Mühle schließen dürfen Sie einen Stein des Gegners entfernen, welcher nicht in einer Mühle ist,
+es sei denn alle seine Steine sind in einer Mühle, dann dürfen Sie auch einen davon auswählen.
+Sobald ein Spieler nur noch drei eigene Steine auf dem Feld hat, darf er mit seinen Steinen zu jeder Position springen
+
+O-----.-----.
+| X---X---X |
+| | O-O-O | |
+X-.-.   X-.-X
+| | O-.-. | |
+| .---.---. |
+.-----.-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 0
+Ich denke nach ... und setze auf 6.
+
+Ich denke nach ... und setze auf 12 und entferne 1.
+
+.-----.-----.
+| X---X---X |
+| | O-O-O | |
+X-.-.   X-X-X
+| | O-.-. | |
+| .---.---. |
+.-----O-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> u
+O-----.-----.
+| X---X---X |
+| | O-O-O | |
+X-.-.   X-.-X
+| | O-.-. | |
+| .---.---. |
+.-----.-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 20
+Dieser Zug ist nicht möglich!
+O-----.-----.
+| X---X---X |
+| | O-O-O | |
+X-.-.   X-.-X
+| | O-.-. | |
+| .---.---. |
+.-----.-----O
+Gib gültigen Spielzug ein ('1-24'-'1-24'-'1-24' + <ENTER>)
+[0: Computer zieht, ?: Hilfe]:
+>> 21
+Ich denke nach ... und setze auf 12 und entferne 21.
 ```
 
 ### Das Laden und Speichern von Spielen (2x 2P)
 
 Wir speichern einen Spielstand gemäß [Spezifikation](https://git.thm.de/dhzb87/p20/blob/master/LoadSaveSpec.md)
+
 - [X] für das T3-Spiel
 - [X] für das Mühle-Spiel
 
 Wir können einen Spielstand gemäß [Spezifikation](https://git.thm.de/dhzb87/p20/blob/master/LoadSaveSpec.md) laden
+
 - [X] für das T3-Spiel
 - [X] für das Mühle-Spiel
 - [X] Wir haben überprüft, dass ungültige Speicherformate nicht geladen werden und keinen Fehler im Programmablauf erzeugen
