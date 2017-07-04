@@ -52,22 +52,24 @@ public class T3UI extends BaseUI<Integer> {
     protected boolean move(String input) {
         int field;
         try {
-        	// make sure only the first character of the input gets checked
             field = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             return false;
         }
-        if (field == 0) {
-            int move = runAI();
-            board = board.makeMove(move);
-        }
-        // Map human friendly field number to count-by-zero
-        if (board.moves().contains(field - 1)) {
+        // Cancel move attempt in case the number is too high
+        if(field > 9) return false;
+
+        // Run ai on input = 0
+        if (field == 0)
+            board = board.makeMove(runAI());
+        // Make move in case it is valid...
+        else if (board.moves().contains(field - 1))
             board = board.makeMove(field - 1);
-        } else {
+        // ... Offer possible moves in case it is not
+        else
             System.out.println("\nDas Spielfeld ist besetzt. Frei sind die Felder " +
                     board.moves().stream().map(i -> (++i).toString()).collect(Collectors.joining(", ")));
-        }
+        // Return true as we handled the input
         return true;
     }
 
