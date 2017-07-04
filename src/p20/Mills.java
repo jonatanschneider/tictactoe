@@ -189,7 +189,7 @@ public class Mills extends Board<Move>{
                 "| %15$1s---%14$1s---%13$1s |\n" +
                 "%7$1s-----%6$1s-----%5$1s";
         // Map board's values to string array containing the field's character representation...
-        String[] ever = IntStream.of(board).mapToObj(i ->  repr[i + 1]).toArray(String[]::new);
+        String[] ever = IntStream.of(board).mapToObj(i ->  repr[(i * (isFlipped ? -1 : 1)) + 1]).toArray(String[]::new);
         // ... so we can easily format the board string
         return String.format(s, ever);
     }

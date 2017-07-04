@@ -35,8 +35,8 @@ public class T3UI extends BaseUI<Integer> {
                 "\n" +
                 "Es wird abwechselnd gezogen. Gewonnen hat, wer zuerst drei Spielsteine (entweder X oder O) in Reihe anordnet." +
                 "\n\n" +
-                "1-9\t\t\tPosition des Feldes, das man besetzen möchte\n" +
-                "0\t\t\tDer Computer macht für Sie einen Zug\n" +
+                "1-9\t\tPosition des Feldes, das man besetzen möchte\n" +
+                "0\t\tDer Computer macht für Sie einen Zug\n" +
                 getBaseHelp();
         System.out.println(t3Help);
     }
@@ -75,6 +75,7 @@ public class T3UI extends BaseUI<Integer> {
 
 	@Override
 	protected Integer runAI() {
+		//Integer move = new AI<Integer>().monteCarlo(board, 100);
 		Integer move = new AI<Integer>().getBestMove(board, 8, 100);
         System.out.println("\nIch denke nach ... und setze auf " + (move+1) + ".");
         return move;
