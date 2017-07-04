@@ -21,11 +21,6 @@ public abstract class BaseUI<T> {
     protected ImmutableBoard<T> board;
 
     /**
-     * Instance of the {@Link AI} class offering artificial intelligence functionality
-     */
-    private AI ai;
-
-    /**
      * Path to savegame
      * Can be overwritten by implementing classes.
      */
@@ -48,7 +43,6 @@ public abstract class BaseUI<T> {
 
     public BaseUI() {
         board = getNewBoard();
-        ai = new AI();
         scanner = new Scanner(System.in);
     }
 
