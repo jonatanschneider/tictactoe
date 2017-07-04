@@ -127,6 +127,9 @@ public abstract class BaseUI<T> {
      */
     private void flip() {
         board.flip();
+        if(isGameOver) {
+            System.out.println(board.toString());
+        }
     }
 
     /**
